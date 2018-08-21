@@ -13,11 +13,6 @@ int main(int argc, char* argv[]){
   TFile * file = new TFile("Histograms.root");
 
   // Histogramme aus Datei auslesen und ein einzelnes Histogramm fuer jedes Signal/Untergrund erstellen
-  TH1F* h_Mass4l_data = (TH1F*)file->Get("hist_Mass4l_data");
-  TH1F* h_Mass4l_higgs = (TH1F*)file->Get("hist_Mass4l_higgs");
-  TH1F* h_Mass4l_ZZ = (TH1F*)file->Get("hist_Mass4l_ZZ");
-  TH1F* h_Mass4l_DY = (TH1F*)file->Get("hist_Mass4l_DY");
-
   TH1F* h_leptonPT_data = (TH1F*)file->Get("hist_leptonPT_data");
   TH1F* h_leptonPT_higgs = (TH1F*)file->Get("hist_leptonPT_higgs");
   TH1F* h_leptonPT_ZZ = (TH1F*)file->Get("hist_leptonPT_ZZ");
@@ -29,19 +24,6 @@ int main(int argc, char* argv[]){
   TH1F* h_leptonETA_DY = (TH1F*)file->Get("hist_leptonETA_DY");
 
   // ein paar Optionen fuer Farben und Linien der einzelnen Histogramme
-  h_Mass4l_data->SetMarkerStyle(20);
-  h_Mass4l_data->SetMarkerSize(0.8);
-  h_Mass4l_data->SetLineColor(1);
-  h_Mass4l_ZZ->SetFillColor(kAzure-9);
-  h_Mass4l_ZZ->SetLineColor(kBlack);
-  h_Mass4l_ZZ->SetLineWidth(2);
-  h_Mass4l_DY->SetFillColor(kGreen+2);
-  h_Mass4l_DY->SetLineColor(kBlack);
-  h_Mass4l_DY->SetLineWidth(2);
-  h_Mass4l_higgs->SetFillColor(kWhite);
-  h_Mass4l_higgs->SetLineColor(kRed);
-  h_Mass4l_higgs->SetLineWidth(2);
-
   h_leptonPT_data->SetMarkerStyle(20);
   h_leptonPT_data->SetMarkerSize(0.8);
   h_leptonPT_data->SetLineColor(1);
@@ -69,11 +51,6 @@ int main(int argc, char* argv[]){
   h_leptonETA_higgs->SetLineWidth(2);
 
   // nun sollen alle Simulationen "gestapelt" werden
-  THStack *stack_Mass4l = new THStack("","");
-  stack_Mass4l->Add(h_Mass4l_DY);
-  stack_Mass4l->Add(h_Mass4l_ZZ);
-  stack_Mass4l->Add(h_Mass4l_higgs);
-
   THStack *stack_leptonPT = new THStack("","");
   stack_leptonPT->Add(h_leptonPT_DY);
   stack_leptonPT->Add(h_leptonPT_ZZ);
@@ -91,25 +68,7 @@ int main(int argc, char* argv[]){
 
 
   // Hier wird der eigentliche Plot erstellt
-  TCanvas* Canvas = new TCanvas("","",600,600);
-  gPad->SetLeftMargin(0.15);
-  stack_Mass4l->Draw("HIST");
-  // Achsen
-  stack_Mass4l->GetXaxis()->SetRangeUser(70, 181);
-  stack_Mass4l->SetMaximum(31);
-  stack_Mass4l->GetXaxis()->SetTitle("Mass 4l [GeV]");
-  stack_Mass4l->GetYaxis()->SetTitle("events");
-  stack_Mass4l->GetXaxis()->SetTitleSize(0.04);
-  stack_Mass4l->GetXaxis()->SetTitleOffset(0.9);
-  stack_Mass4l->GetYaxis()->SetTitleSize(0.05);
-  stack_Mass4l->GetYaxis()->SetTitleOffset(1.1);
-  //Draw
-  stack_Mass4l->Draw("HIST");
-  h_Mass4l_data->Draw("E1 SAME");
-  //speichern
-  Canvas->SaveAs("Mass4l.pdf");
-
-  TCanvas* Canvas2 = new TCanvas("","",600,600);
+  TCanvas* Canvas_leptonPT = new TCanvas("","",600,600);
   gPad->SetLeftMargin(0.15);
   stack_leptonPT->Draw("HIST");
   // Achsen
@@ -133,9 +92,9 @@ int main(int argc, char* argv[]){
   leg_pt->AddEntry(h_leptonPT_higgs,"Higgs","f");
   leg_pt->Draw();
   //speichern
-  Canvas2->SaveAs("LeptonPT.pdf");
+  Canvas_leptonPT->SaveAs("LeptonPT.pdf");
 
-  TCanvas* Canvas3 = new TCanvas("","",600,600);
+  TCanvas* Canvas_leptonETA = new TCanvas("","",600,600);
   gPad->SetLeftMargin(0.15);
   stack_leptonETA->Draw("HIST");
   // Achsen
@@ -159,7 +118,7 @@ int main(int argc, char* argv[]){
   leg_eta->AddEntry(h_leptonETA_higgs,"Higgs","f");
   leg_eta->Draw();
   //speichern
-  Canvas3->SaveAs("LeptonETA.pdf");
+  Canvas_leptonETA->SaveAs("LeptonETA.pdf");
 
   return 0;
 }

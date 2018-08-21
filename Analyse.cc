@@ -1,9 +1,17 @@
 #include "Analyse.h"
 
+/*
+Dies ist der eigentliche Analyse-Code.
+Hier werden die rohen Root Dateien jedes Prozesses eingelesen und verarbeitet.
+Ihr koennt hier Variablen zusammensetzen und Histogramme fuellen.
+Der Output wird gesammelt in einer weiteren Root Datei abgespeichert.
+*/
+
+
 int main(int argc, char* argv[]){
 
   // -----------------------------------------------------------------------------
-  // Output Namen angeben
+  // Hier wird der Name der Output Datei vergeben
   TString outputName = "Histograms.root";
   outputFile=new TFile(outputName,"recreate");
 
@@ -36,8 +44,8 @@ int main(int argc, char* argv[]){
 
 
   // -----------------------------------------------------------------------------
-  // hier Histogramme definieren
-  // für jede Variable (z.B. Lepton pT) und jeden Prozess (daten, ZZ, DY, ..) wird ein eigened Histogramm gefüllt
+  // Hier werden Histogramme definiert.
+  // für jede Variable (z.B. Lepton pT) und jeden Prozess (daten, ZZ, DY, ..) wird ein eigenes Histogramm gefüllt
   hist_Mass4l_data = new TH1F("hist_Mass4l_data", "Mass 4l", 37, 70, 181);
   hist_Mass4l_higgs = new TH1F("hist_Mass4l_higgs", "Mass 4l", 37, 70, 181);
   hist_Mass4l_ZZ = new TH1F("hist_Mass4l_ZZ", "Mass 4l", 37, 70, 181);
@@ -56,7 +64,10 @@ int main(int argc, char* argv[]){
   // -----------------------------------------------------------------------------
   // Files angeben, TTree auswaehlen und Histogramme fuellen
   // WICHTIG: Fuer jede Datei Namen und Gewicht uebergeben
-  TString dir = "rootfiles/";
+  // Dabei wird fuer jeden Zerfallskanal (4e, 4mu, 2e2mu) eine Funktion 'HistogrammFuellen' aufgerufen,
+  // welche weiter unten definiert ist. In dieser findet die eigentliche Auswertung statt.
+
+  TString dir = "rootfiles/"; // Ordner in dem die Root Dateien liegen
 
   // Daten 2011 (der 2mu2el Kanal kommt nur von dem Myonen Datensatz!)
   TFile * file_elek2011 = new TFile(dir+"DATA_Elektron_2011.root");
@@ -140,7 +151,8 @@ int main(int argc, char* argv[]){
   outputFile->Write();
   return 0;
 }
-
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // Hier werden Histogramme fuer den 2 Myonen + 2 Elektronen Kanal geschrieben
 //
@@ -234,7 +246,8 @@ void HistogrammFuellen2mu2el(TTree* tree, TString name, double weight){
 
   return;
 }
-
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // Hier werden Histogramme fuer den 4 Elektronen Kanal geschrieben
 //
@@ -426,7 +439,8 @@ void HistogrammFuellen4el(TTree* tree, TString name, double weight){
 
   return;
 }
-
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // Hier werden Histogramme fuer den 4 Myonen Kanal geschrieben
 //

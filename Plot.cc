@@ -1,6 +1,11 @@
 #include "Plot.h"
 
-
+/*
+ In diesem Programm lest ihr die Output Datei aus 'Analyse' ein.
+ Darin befinden sich Histogramme getrannt nach den verschiedenen Prozessen.
+ Hier fuegt ihr diese in einen Plot zusammen, waehlt Farben aus, beschriftet Achsen
+ und fertigt eine Legende an.
+*/
 
 int main(int argc, char* argv[]){
 
@@ -78,6 +83,7 @@ int main(int argc, char* argv[]){
   stack_leptonETA->Add(h_leptonETA_DY);
   stack_leptonETA->Add(h_leptonETA_ZZ);
   stack_leptonETA->Add(h_leptonETA_higgs);
+
   // ein paar allgemeine Style Optionen
   gStyle->SetOptStat(kFALSE);
   gStyle->SetPadTickY(1);
@@ -134,7 +140,7 @@ int main(int argc, char* argv[]){
   stack_leptonETA->Draw("HIST");
   // Achsen
   stack_leptonETA->GetXaxis()->SetRangeUser(-3, 3);
-  stack_leptonETA->SetMaximum(140);
+  stack_leptonETA->SetMaximum(150);
   stack_leptonETA->GetXaxis()->SetTitle("Lepton #eta [GeV]");
   stack_leptonETA->GetYaxis()->SetTitle("events");
   stack_leptonETA->GetXaxis()->SetTitleSize(0.04);
@@ -144,7 +150,14 @@ int main(int argc, char* argv[]){
   // Draw
   stack_leptonETA->Draw("HIST");
   h_leptonETA_data->Draw("E1 SAME");
-
+  // Legende
+  TLegend* leg_eta = new TLegend(0.60,0.60,0.87,0.85);
+  leg_eta->SetFillStyle(0);
+  leg_eta->AddEntry(h_leptonETA_data,"data","pl");
+  leg_eta->AddEntry(h_leptonETA_ZZ,"ZZ","f");
+  leg_eta->AddEntry(h_leptonETA_DY,"Z/#gamma + X","f");
+  leg_eta->AddEntry(h_leptonETA_higgs,"Higgs","f");
+  leg_eta->Draw();
   //speichern
   Canvas3->SaveAs("LeptonETA.pdf");
 

@@ -29,10 +29,6 @@ Int_t charge_mu1, charge_mu2, charge_mu3, charge_mu4;
 Int_t charge_el1, charge_el2, charge_el3, charge_el4;
 
 // Histogramme hier deklarieren
-TH1F* hist_Mass4l_data;
-TH1F* hist_Mass4l_higgs;
-TH1F* hist_Mass4l_ZZ;
-TH1F* hist_Mass4l_DY;
 TH1F* hist_leptonPT_data;
 TH1F* hist_leptonPT_higgs;
 TH1F* hist_leptonPT_ZZ;

@@ -46,11 +46,6 @@ int main(int argc, char* argv[]){
   // -----------------------------------------------------------------------------
   // Hier werden Histogramme definiert.
   // für jede Variable (z.B. Lepton pT) und jeden Prozess (daten, ZZ, DY, ..) wird ein eigenes Histogramm gefüllt
-  hist_Mass4l_data = new TH1F("hist_Mass4l_data", "Mass 4l", 37, 70, 181);
-  hist_Mass4l_higgs = new TH1F("hist_Mass4l_higgs", "Mass 4l", 37, 70, 181);
-  hist_Mass4l_ZZ = new TH1F("hist_Mass4l_ZZ", "Mass 4l", 37, 70, 181);
-  hist_Mass4l_DY = new TH1F("hist_Mass4l_DY", "Mass 4l", 37, 70, 181);
-
   hist_leptonPT_data = new TH1F("hist_leptonPT_data", "Lepton p_{T}", 20, 0, 300);
   hist_leptonPT_higgs = new TH1F("hist_leptonPT_higgs", "Lepton p_{T}", 20, 0, 300);
   hist_leptonPT_ZZ = new TH1F("hist_leptonPT_ZZ", "Lepton p_{T}", 20, 0, 300);
@@ -196,47 +191,29 @@ void HistogrammFuellen2mu2el(TTree* tree, TString name, double weight){
     Mu2_v4.SetPxPyPzE(px_mu2, py_mu2, pz_mu2, E_mu2);
     El1_v4.SetPxPyPzE(px_el1, py_el1, pz_el1, E_el1);
     El2_v4.SetPxPyPzE(px_el2, py_el2, pz_el2, E_el2);
+
+    // zusammenfassen der 4 Leptonen in einen Vektor
     vector<TLorentzVector> Leptonen = {Mu1_v4, Mu2_v4, El1_v4, El2_v4};
 
-    TLorentzVector Z1_v4, Z2_v4;
-    Z1_v4 = Mu1_v4 + Mu2_v4;
-    Z2_v4 = El1_v4 + El2_v4;
-    double massZ1, massZ2;
-    if(Z1_v4.M() > Z2_v4.M()){
-      massZ1 = Z1_v4.M();
-      massZ2 = Z2_v4.M();
-    }
-    else{
-      massZ1 = Z2_v4.M();
-      massZ2 = Z1_v4.M();
-    }
-    TLorentzVector final_v4;
-    final_v4 = Mu1_v4 + Mu2_v4 + El1_v4 + El2_v4;
-    double mass4l = final_v4.M();
-
     if(name == "data"){
-      hist_Mass4l_data->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_data->Fill(lep.Pt(), weight);
         hist_leptonETA_data->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "higgs"){
-      hist_Mass4l_higgs->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_higgs->Fill(lep.Pt(), weight);
         hist_leptonETA_higgs->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "ZZ"){
-      hist_Mass4l_ZZ->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_ZZ->Fill(lep.Pt(), weight);
         hist_leptonETA_ZZ->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "DY"){
-      hist_Mass4l_DY->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_DY->Fill(lep.Pt(), weight);
         hist_leptonETA_DY->Fill(lep.Eta(), weight);
@@ -296,140 +273,26 @@ void HistogrammFuellen4el(TTree* tree, TString name, double weight){
     El4_v4.SetPxPyPzE(px_el4, py_el4, pz_el4, E_el4);
     vector<TLorentzVector> Leptonen = {El1_v4, El2_v4, El3_v4, El4_v4};
 
-    if (charge_el1  + charge_el2 + charge_el3 + charge_el4 != 0) continue;
-
-    // hier direkt nach ladungen sortieren
-    TLorentzVector El_pos1_v4, El_pos2_v4, El_neg1_v4, El_neg2_v4;
-    if(charge_el1 > 0 && charge_el2 > 0 ){
-      El_pos1_v4.SetPxPyPzE(px_el1, py_el1, pz_el1, E_el1);
-      El_pos2_v4.SetPxPyPzE(px_el2, py_el2, pz_el2, E_el2);
-      El_neg1_v4.SetPxPyPzE(px_el3, py_el3, pz_el3, E_el3);
-      El_neg2_v4.SetPxPyPzE(px_el4, py_el4, pz_el4, E_el4);
-    }
-    else if(charge_el1 > 0 && charge_el3 > 0 ){
-      El_pos1_v4.SetPxPyPzE(px_el1, py_el1, pz_el1, E_el1);
-      El_pos2_v4.SetPxPyPzE(px_el3, py_el3, pz_el3, E_el3);
-      El_neg1_v4.SetPxPyPzE(px_el2, py_el2, pz_el2, E_el2);
-      El_neg2_v4.SetPxPyPzE(px_el4, py_el4, pz_el4, E_el4);
-    }
-    else if(charge_el1 > 0 && charge_el4 > 0 ){
-      El_pos1_v4.SetPxPyPzE(px_el1, py_el1, pz_el1, E_el1);
-      El_pos2_v4.SetPxPyPzE(px_el4, py_el4, pz_el4, E_el4);
-      El_neg1_v4.SetPxPyPzE(px_el2, py_el2, pz_el2, E_el2);
-      El_neg2_v4.SetPxPyPzE(px_el3, py_el3, pz_el3, E_el3);
-    }
-    else if(charge_el2 > 0 && charge_el3 > 0 ){
-      El_pos1_v4.SetPxPyPzE(px_el2, py_el2, pz_el2, E_el2);
-      El_pos2_v4.SetPxPyPzE(px_el3, py_el3, pz_el3, E_el3);
-      El_neg1_v4.SetPxPyPzE(px_el1, py_el1, pz_el1, E_el1);
-      El_neg2_v4.SetPxPyPzE(px_el4, py_el4, pz_el4, E_el4);
-    }
-    else if(charge_el2 > 0 && charge_el4 > 0 ){
-      El_pos1_v4.SetPxPyPzE(px_el2, py_el2, pz_el2, E_el2);
-      El_pos2_v4.SetPxPyPzE(px_el4, py_el4, pz_el4, E_el4);
-      El_neg1_v4.SetPxPyPzE(px_el1, py_el1, pz_el1, E_el1);
-      El_neg2_v4.SetPxPyPzE(px_el3, py_el3, pz_el3, E_el3);
-    }
-    else if(charge_el3 > 0 && charge_el4 > 0 ){
-      El_pos1_v4.SetPxPyPzE(px_el3, py_el3, pz_el3, E_el3);
-      El_pos2_v4.SetPxPyPzE(px_el4, py_el4, pz_el4, E_el4);
-      El_neg1_v4.SetPxPyPzE(px_el1, py_el1, pz_el1, E_el1);
-      El_neg2_v4.SetPxPyPzE(px_el2, py_el2, pz_el2, E_el2);
-    }
-
-    // Jetzt wird ein Z jeweils aus pos und neg zusammengesetzt.
-    // Pro Ereignis, haben wir zwei Z.
-    // Hier gibt es noch zwei moegliche Kombinationen.
-    // Es muss die Version ausgewaehlt werden, bei der das eine Z dicht an der Z-Masse aus der Literatur liegt.
-    double Zmass_book = 91.19;
-    TLorentzVector Z1_1, Z1_2, Z2_1, Z2_2;
-
-    Z1_1 = El_pos1_v4 + El_neg1_v4;
-    Z2_1 = El_pos2_v4 + El_neg2_v4;
-    Z1_2 = El_pos1_v4 + El_neg2_v4;
-    Z2_2 = El_pos2_v4 + El_neg1_v4;
-
-    double d1_1, d1_2, d2_1, d2_2;
-    d1_1 = sqrt( (Z1_1.M() - Zmass_book) * (Z1_1.M() - Zmass_book) );
-    d2_1 = sqrt( (Z2_1.M() - Zmass_book) * (Z2_1.M() - Zmass_book) );
-    d1_2 = sqrt( (Z1_2.M() - Zmass_book) * (Z1_2.M() - Zmass_book) );
-    d2_2 = sqrt( (Z2_2.M() - Zmass_book) * (Z2_2.M() - Zmass_book) );
-
-    // jetzt minimale Abweichung finden
-    double minDelta = 10000;
-    bool use_combination1 = false;
-    if(d1_1 < minDelta){
-      minDelta = d1_1;
-      use_combination1 = true;
-    }
-    if(d2_1 < minDelta){
-      minDelta = d2_1;
-      use_combination1 = true;
-    }
-    if(d1_2 < minDelta){
-      minDelta = d1_2;
-      use_combination1 = false;
-    }
-    if(d2_2 < minDelta){
-      minDelta = d2_2;
-      use_combination1 = false;
-    }
-
-    double mass4l, massZ1, massZ2;
-    TLorentzVector higgs;
-    if(use_combination1){
-      if(Z1_1.M() > Z2_1.M()){
-        massZ1 = Z1_1.M();
-        massZ2 = Z2_1.M();
-      }
-      else{
-        massZ1 = Z2_1.M();
-        massZ2 = Z1_1.M();
-      }
-      higgs = Z1_1 + Z2_1;
-      mass4l = higgs.M();
-    }
-    else{
-      if(Z1_2.M() > Z2_2.M()){
-        massZ1 = Z1_2.M();
-        massZ2 = Z2_2.M();
-      }
-      else{
-        massZ1 = Z2_2.M();
-        massZ2 = Z1_2.M();
-      }
-      higgs = Z1_2 + Z2_2;
-      mass4l = higgs.M();
-    }
-
-    // Ein paar Qualitaetskriterien anwenden:
-    if(massZ1 < 40. || massZ1 > 120.) continue;
-    if(massZ2 < 12. || massZ2 > 120.) continue;
-
     // Histogramme fuellen:
     if(name == "data"){
-      hist_Mass4l_data->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_data->Fill(lep.Pt(), weight);
         hist_leptonETA_data->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "higgs"){
-      hist_Mass4l_higgs->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_higgs->Fill(lep.Pt(), weight);
         hist_leptonETA_higgs->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "ZZ"){
-      hist_Mass4l_ZZ->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_ZZ->Fill(lep.Pt(), weight);
         hist_leptonETA_ZZ->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "DY"){
-      hist_Mass4l_DY->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_DY->Fill(lep.Pt(), weight);
         hist_leptonETA_DY->Fill(lep.Eta(), weight);
@@ -489,140 +352,27 @@ void HistogrammFuellen4mu(TTree* tree, TString name, double weight){
     Mu4_v4.SetPxPyPzE(px_mu4, py_mu4, pz_mu4, E_mu4);
     vector<TLorentzVector> Leptonen = {Mu1_v4, Mu2_v4, Mu3_v4, Mu4_v4};
 
-    if (charge_mu1  + charge_mu2 + charge_mu3 + charge_mu4 != 0) continue;
-
-    // hier direkt nach ladungen sortieren
-    TLorentzVector mu_pos1_v4, mu_pos2_v4, mu_neg1_v4, mu_neg2_v4;
-    if(charge_mu1 > 0 && charge_mu2 > 0 ){
-      mu_pos1_v4.SetPxPyPzE(px_mu1, py_mu1, pz_mu1, E_mu1);
-      mu_pos2_v4.SetPxPyPzE(px_mu2, py_mu2, pz_mu2, E_mu2);
-      mu_neg1_v4.SetPxPyPzE(px_mu3, py_mu3, pz_mu3, E_mu3);
-      mu_neg2_v4.SetPxPyPzE(px_mu4, py_mu4, pz_mu4, E_mu4);
-    }
-    else if(charge_mu1 > 0 && charge_mu3 > 0 ){
-      mu_pos1_v4.SetPxPyPzE(px_mu1, py_mu1, pz_mu1, E_mu1);
-      mu_pos2_v4.SetPxPyPzE(px_mu3, py_mu3, pz_mu3, E_mu3);
-      mu_neg1_v4.SetPxPyPzE(px_mu2, py_mu2, pz_mu2, E_mu2);
-      mu_neg2_v4.SetPxPyPzE(px_mu4, py_mu4, pz_mu4, E_mu4);
-    }
-    else if(charge_mu1 > 0 && charge_mu4 > 0 ){
-      mu_pos1_v4.SetPxPyPzE(px_mu1, py_mu1, pz_mu1, E_mu1);
-      mu_pos2_v4.SetPxPyPzE(px_mu4, py_mu4, pz_mu4, E_mu4);
-      mu_neg1_v4.SetPxPyPzE(px_mu2, py_mu2, pz_mu2, E_mu2);
-      mu_neg2_v4.SetPxPyPzE(px_mu3, py_mu3, pz_mu3, E_mu3);
-    }
-    else if(charge_mu2 > 0 && charge_mu3 > 0 ){
-      mu_pos1_v4.SetPxPyPzE(px_mu2, py_mu2, pz_mu2, E_mu2);
-      mu_pos2_v4.SetPxPyPzE(px_mu3, py_mu3, pz_mu3, E_mu3);
-      mu_neg1_v4.SetPxPyPzE(px_mu1, py_mu1, pz_mu1, E_mu1);
-      mu_neg2_v4.SetPxPyPzE(px_mu4, py_mu4, pz_mu4, E_mu4);
-    }
-    else if(charge_mu2 > 0 && charge_mu4 > 0 ){
-      mu_pos1_v4.SetPxPyPzE(px_mu2, py_mu2, pz_mu2, E_mu2);
-      mu_pos2_v4.SetPxPyPzE(px_mu4, py_mu4, pz_mu4, E_mu4);
-      mu_neg1_v4.SetPxPyPzE(px_mu1, py_mu1, pz_mu1, E_mu1);
-      mu_neg2_v4.SetPxPyPzE(px_mu3, py_mu3, pz_mu3, E_mu3);
-    }
-    else if(charge_mu3 > 0 && charge_mu4 > 0 ){
-      mu_pos1_v4.SetPxPyPzE(px_mu3, py_mu3, pz_mu3, E_mu3);
-      mu_pos2_v4.SetPxPyPzE(px_mu4, py_mu4, pz_mu4, E_mu4);
-      mu_neg1_v4.SetPxPyPzE(px_mu1, py_mu1, pz_mu1, E_mu1);
-      mu_neg2_v4.SetPxPyPzE(px_mu2, py_mu2, pz_mu2, E_mu2);
-    }
-
-    // Jetzt wird ein Z jeweils aus pos und neg zusammengesetzt.
-    // Pro Ereignis, haben wir zwei Z.
-    // Hier gibt es noch zwei moegliche Kombinationen.
-    // Es muss die Version ausgewaehlt werden, bei der das eine Z dicht an der Z-Masse aus der Literatur liegt.
-    double Zmass_book = 91.19;
-    TLorentzVector Z1_1, Z1_2, Z2_1, Z2_2;
-
-    Z1_1 = mu_pos1_v4 + mu_neg1_v4;
-    Z2_1 = mu_pos2_v4 + mu_neg2_v4;
-    Z1_2 = mu_pos1_v4 + mu_neg2_v4;
-    Z2_2 = mu_pos2_v4 + mu_neg1_v4;
-
-    double d1_1, d1_2, d2_1, d2_2;
-    d1_1 = sqrt( (Z1_1.M() - Zmass_book) * (Z1_1.M() - Zmass_book) );
-    d2_1 = sqrt( (Z2_1.M() - Zmass_book) * (Z2_1.M() - Zmass_book) );
-    d1_2 = sqrt( (Z1_2.M() - Zmass_book) * (Z1_2.M() - Zmass_book) );
-    d2_2 = sqrt( (Z2_2.M() - Zmass_book) * (Z2_2.M() - Zmass_book) );
-
-    // jetzt minimale Abweichung finden
-    double minDelta = 10000;
-    bool use_combination1 = false;
-    if(d1_1 < minDelta){
-      minDelta = d1_1;
-      use_combination1 = true;
-    }
-    if(d2_1 < minDelta){
-      minDelta = d2_1;
-      use_combination1 = true;
-    }
-    if(d1_2 < minDelta){
-      minDelta = d1_2;
-      use_combination1 = false;
-    }
-    if(d2_2 < minDelta){
-      minDelta = d2_2;
-      use_combination1 = false;
-    }
-
-    double mass4l, massZ1, massZ2;
-    TLorentzVector higgs;
-    if(use_combination1){
-      if(Z1_1.M() > Z2_1.M()){
-        massZ1 = Z1_1.M();
-        massZ2 = Z2_1.M();
-      }
-      else{
-        massZ1 = Z2_1.M();
-        massZ2 = Z1_1.M();
-      }
-      higgs = Z1_1 + Z2_1;
-      mass4l = higgs.M();
-    }
-    else{
-      if(Z1_2.M() > Z2_2.M()){
-        massZ1 = Z1_2.M();
-        massZ2 = Z2_2.M();
-      }
-      else{
-        massZ1 = Z2_2.M();
-        massZ2 = Z1_2.M();
-      }
-      higgs = Z1_2 + Z2_2;
-      mass4l = higgs.M();
-    }
-
-    // Ein paar Qualitaetskriterien anwenden:
-    if(massZ1 < 40. || massZ1 > 120.) continue;
-    if(massZ2 < 12. || massZ2 > 120.) continue;
 
     // Histogramme fuellen:
     if(name == "data"){
-      hist_Mass4l_data->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_data->Fill(lep.Pt(), weight);
         hist_leptonETA_data->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "higgs"){
-      hist_Mass4l_higgs->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_higgs->Fill(lep.Pt(), weight);
         hist_leptonETA_higgs->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "ZZ"){
-      hist_Mass4l_ZZ->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_ZZ->Fill(lep.Pt(), weight);
         hist_leptonETA_ZZ->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "DY"){
-      hist_Mass4l_DY->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_DY->Fill(lep.Pt(), weight);
         hist_leptonETA_DY->Fill(lep.Eta(), weight);

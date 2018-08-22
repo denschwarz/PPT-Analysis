@@ -29,10 +29,16 @@ Int_t charge_mu1, charge_mu2, charge_mu3, charge_mu4;
 Int_t charge_el1, charge_el2, charge_el3, charge_el4;
 
 // Histogramme hier deklarieren
+TH1F* hist_eventcount_data;
+TH1F* hist_eventcount_higgs;
+TH1F* hist_eventcount_ZZ;
+TH1F* hist_eventcount_DY;
+
 TH1F* hist_leptonPT_data;
 TH1F* hist_leptonPT_higgs;
 TH1F* hist_leptonPT_ZZ;
 TH1F* hist_leptonPT_DY;
+
 TH1F* hist_leptonETA_data;
 TH1F* hist_leptonETA_higgs;
 TH1F* hist_leptonETA_ZZ;
@@ -61,7 +67,7 @@ Double_t xsecHZZ12 = 0.0065;
 Double_t xsecHZZ11 = 0.0057;
 // Zusatzlicher Faktor fuer ZZ und DY
 // ( im Ramen der vollen Analyse gemessen)
-Double_t sfZZ = 1.386;
+Double_t sfZZ = 1.3;
 Double_t sfDY = 1.12;
 // Anzahl an simulierten Ereignissen
 Int_t nevtZZ4mu12 = 1499064;

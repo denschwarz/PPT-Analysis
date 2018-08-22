@@ -46,10 +46,15 @@ int main(int argc, char* argv[]){
   // -----------------------------------------------------------------------------
   // Hier werden Histogramme definiert.
   // für jede Variable (z.B. Lepton pT) und jeden Prozess (daten, ZZ, DY, ..) wird ein eigenes Histogramm gefüllt
-  hist_leptonPT_data = new TH1F("hist_leptonPT_data", "Lepton p_{T}", 20, 0, 300);
-  hist_leptonPT_higgs = new TH1F("hist_leptonPT_higgs", "Lepton p_{T}", 20, 0, 300);
-  hist_leptonPT_ZZ = new TH1F("hist_leptonPT_ZZ", "Lepton p_{T}", 20, 0, 300);
-  hist_leptonPT_DY = new TH1F("hist_leptonPT_DY", "Lepton p_{T}", 20, 0, 300);
+  hist_eventcount_data = new TH1F("hist_eventcount_data", " ", 1, 0, 2);
+  hist_eventcount_higgs = new TH1F("hist_eventcount_higgs", " ", 1, 0, 2);
+  hist_eventcount_ZZ = new TH1F("hist_eventcount_ZZ", " ", 1, 0, 2);
+  hist_eventcount_DY = new TH1F("hist_eventcount_DY", " ", 1, 0, 2);
+
+  hist_leptonPT_data = new TH1F("hist_leptonPT_data", "Lepton p_{T}", 10, 0, 300);
+  hist_leptonPT_higgs = new TH1F("hist_leptonPT_higgs", "Lepton p_{T}", 10, 0, 300);
+  hist_leptonPT_ZZ = new TH1F("hist_leptonPT_ZZ", "Lepton p_{T}", 10, 0, 300);
+  hist_leptonPT_DY = new TH1F("hist_leptonPT_DY", "Lepton p_{T}", 10, 0, 300);
 
   hist_leptonETA_data = new TH1F("hist_leptonETA_data", "Lepton eta", 30, -4, 4);
   hist_leptonETA_higgs = new TH1F("hist_leptonETA_higgs", "Lepton eta", 30, -4, 4);
@@ -196,24 +201,28 @@ void HistogrammFuellen2mu2el(TTree* tree, TString name, double weight){
     vector<TLorentzVector> Leptonen = {Mu1_v4, Mu2_v4, El1_v4, El2_v4};
 
     if(name == "data"){
+      hist_eventcount_data->Fill(1, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_data->Fill(lep.Pt(), weight);
         hist_leptonETA_data->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "higgs"){
+      hist_eventcount_higgs->Fill(1, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_higgs->Fill(lep.Pt(), weight);
         hist_leptonETA_higgs->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "ZZ"){
+      hist_eventcount_ZZ->Fill(1, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_ZZ->Fill(lep.Pt(), weight);
         hist_leptonETA_ZZ->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "DY"){
+      hist_eventcount_DY->Fill(1, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_DY->Fill(lep.Pt(), weight);
         hist_leptonETA_DY->Fill(lep.Eta(), weight);
@@ -275,24 +284,28 @@ void HistogrammFuellen4el(TTree* tree, TString name, double weight){
 
     // Histogramme fuellen:
     if(name == "data"){
+      hist_eventcount_data->Fill(1, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_data->Fill(lep.Pt(), weight);
         hist_leptonETA_data->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "higgs"){
+      hist_eventcount_higgs->Fill(1, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_higgs->Fill(lep.Pt(), weight);
         hist_leptonETA_higgs->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "ZZ"){
+      hist_eventcount_ZZ->Fill(1, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_ZZ->Fill(lep.Pt(), weight);
         hist_leptonETA_ZZ->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "DY"){
+      hist_eventcount_DY->Fill(1, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_DY->Fill(lep.Pt(), weight);
         hist_leptonETA_DY->Fill(lep.Eta(), weight);
@@ -355,24 +368,28 @@ void HistogrammFuellen4mu(TTree* tree, TString name, double weight){
 
     // Histogramme fuellen:
     if(name == "data"){
+      hist_eventcount_data->Fill(1, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_data->Fill(lep.Pt(), weight);
         hist_leptonETA_data->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "higgs"){
+      hist_eventcount_higgs->Fill(1, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_higgs->Fill(lep.Pt(), weight);
         hist_leptonETA_higgs->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "ZZ"){
+      hist_eventcount_ZZ->Fill(1, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_ZZ->Fill(lep.Pt(), weight);
         hist_leptonETA_ZZ->Fill(lep.Eta(), weight);
       }
     }
     else if(name == "DY"){
+      hist_eventcount_DY->Fill(1, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_DY->Fill(lep.Pt(), weight);
         hist_leptonETA_DY->Fill(lep.Eta(), weight);

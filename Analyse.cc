@@ -46,6 +46,11 @@ int main(int argc, char* argv[]){
   // -----------------------------------------------------------------------------
   // Hier werden Histogramme definiert.
   // für jede Variable (z.B. Lepton pT) und jeden Prozess (daten, ZZ, DY, ..) wird ein eigenes Histogramm gefüllt
+  hist_EventCount_data = new TH1F("hist_EventCount_data", " ", 1, 0, 2);
+  hist_EventCount_higgs = new TH1F("hist_EventCount_higgs", " ", 1, 0, 2);
+  hist_EventCount_ZZ = new TH1F("hist_EventCount_ZZ", " ", 1, 0, 2);
+  hist_EventCount_DY = new TH1F("hist_EventCount_DY", " ", 1, 0, 2);
+
   hist_Mass4l_data = new TH1F("hist_Mass4l_data", "Mass 4l", 37, 70, 181);
   hist_Mass4l_higgs = new TH1F("hist_Mass4l_higgs", "Mass 4l", 37, 70, 181);
   hist_Mass4l_ZZ = new TH1F("hist_Mass4l_ZZ", "Mass 4l", 37, 70, 181);
@@ -215,6 +220,7 @@ void HistogrammFuellen2mu2el(TTree* tree, TString name, double weight){
     double mass4l = final_v4.M();
 
     if(name == "data"){
+      hist_EventCount_data->Fill(1, weight);
       hist_Mass4l_data->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_data->Fill(lep.Pt(), weight);
@@ -222,6 +228,7 @@ void HistogrammFuellen2mu2el(TTree* tree, TString name, double weight){
       }
     }
     else if(name == "higgs"){
+      hist_EventCount_higgs->Fill(1, weight);
       hist_Mass4l_higgs->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_higgs->Fill(lep.Pt(), weight);
@@ -229,6 +236,7 @@ void HistogrammFuellen2mu2el(TTree* tree, TString name, double weight){
       }
     }
     else if(name == "ZZ"){
+      hist_EventCount_ZZ->Fill(1, weight);
       hist_Mass4l_ZZ->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_ZZ->Fill(lep.Pt(), weight);
@@ -236,6 +244,7 @@ void HistogrammFuellen2mu2el(TTree* tree, TString name, double weight){
       }
     }
     else if(name == "DY"){
+      hist_EventCount_DY->Fill(1, weight);
       hist_Mass4l_DY->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_DY->Fill(lep.Pt(), weight);
@@ -408,6 +417,7 @@ void HistogrammFuellen4el(TTree* tree, TString name, double weight){
 
     // Histogramme fuellen:
     if(name == "data"){
+      hist_EventCount_data->Fill(1, weight);
       hist_Mass4l_data->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_data->Fill(lep.Pt(), weight);
@@ -415,6 +425,7 @@ void HistogrammFuellen4el(TTree* tree, TString name, double weight){
       }
     }
     else if(name == "higgs"){
+      hist_EventCount_higgs->Fill(1, weight);
       hist_Mass4l_higgs->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_higgs->Fill(lep.Pt(), weight);
@@ -422,6 +433,7 @@ void HistogrammFuellen4el(TTree* tree, TString name, double weight){
       }
     }
     else if(name == "ZZ"){
+      hist_EventCount_ZZ->Fill(1, weight);
       hist_Mass4l_ZZ->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_ZZ->Fill(lep.Pt(), weight);
@@ -429,6 +441,7 @@ void HistogrammFuellen4el(TTree* tree, TString name, double weight){
       }
     }
     else if(name == "DY"){
+      hist_EventCount_DY->Fill(1, weight);
       hist_Mass4l_DY->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_DY->Fill(lep.Pt(), weight);
@@ -601,6 +614,7 @@ void HistogrammFuellen4mu(TTree* tree, TString name, double weight){
 
     // Histogramme fuellen:
     if(name == "data"){
+      hist_EventCount_data->Fill(1, weight);
       hist_Mass4l_data->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_data->Fill(lep.Pt(), weight);
@@ -608,6 +622,7 @@ void HistogrammFuellen4mu(TTree* tree, TString name, double weight){
       }
     }
     else if(name == "higgs"){
+      hist_EventCount_higgs->Fill(1, weight);
       hist_Mass4l_higgs->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_higgs->Fill(lep.Pt(), weight);
@@ -615,6 +630,7 @@ void HistogrammFuellen4mu(TTree* tree, TString name, double weight){
       }
     }
     else if(name == "ZZ"){
+      hist_EventCount_ZZ->Fill(1, weight);
       hist_Mass4l_ZZ->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_ZZ->Fill(lep.Pt(), weight);
@@ -622,6 +638,7 @@ void HistogrammFuellen4mu(TTree* tree, TString name, double weight){
       }
     }
     else if(name == "DY"){
+      hist_EventCount_DY->Fill(1, weight);
       hist_Mass4l_DY->Fill(mass4l, weight);
       for(auto lep: Leptonen){
         hist_leptonPT_DY->Fill(lep.Pt(), weight);

@@ -16,3 +16,5 @@
 #include <TLorentzVector.h>
 
 using namespace std;
+
+TH1F* SB(TH1F*, TH1F*);

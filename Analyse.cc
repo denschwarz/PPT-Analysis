@@ -46,25 +46,25 @@ int main(int argc, char* argv[]){
   // -----------------------------------------------------------------------------
   // Hier werden Histogramme definiert.
   // für jede Variable (z.B. Lepton pT) und jeden Prozess (daten, ZZ, DY, ..) wird ein eigenes Histogramm gefüllt
-  hist_EventCount_data = new TH1F("hist_EventCount_data", " ", 1, 0, 2);
-  hist_EventCount_higgs = new TH1F("hist_EventCount_higgs", " ", 1, 0, 2);
-  hist_EventCount_ZZ = new TH1F("hist_EventCount_ZZ", " ", 1, 0, 2);
-  hist_EventCount_DY = new TH1F("hist_EventCount_DY", " ", 1, 0, 2);
+  hist_EventCount.push_back(new TH1F("hist_EventCount_data", " ", 1, 0, 2));
+  hist_EventCount.push_back(new TH1F("hist_EventCount_higgs", " ", 1, 0, 2));
+  hist_EventCount.push_back(new TH1F("hist_EventCount_ZZ", " ", 1, 0, 2));
+  hist_EventCount.push_back(new TH1F("hist_EventCount_DY", " ", 1, 0, 2));
 
-  hist_Mass4l_data = new TH1F("hist_Mass4l_data", "Mass 4l", 37, 70, 181);
-  hist_Mass4l_higgs = new TH1F("hist_Mass4l_higgs", "Mass 4l", 37, 70, 181);
-  hist_Mass4l_ZZ = new TH1F("hist_Mass4l_ZZ", "Mass 4l", 37, 70, 181);
-  hist_Mass4l_DY = new TH1F("hist_Mass4l_DY", "Mass 4l", 37, 70, 181);
+  hist_Mass4l.push_back(new TH1F("hist_Mass4l_data", "Mass 4l", 37, 70, 181));
+  hist_Mass4l.push_back(new TH1F("hist_Mass4l_higgs", "Mass 4l", 37, 70, 181));
+  hist_Mass4l.push_back(new TH1F("hist_Mass4l_ZZ", "Mass 4l", 37, 70, 181));
+  hist_Mass4l.push_back(new TH1F("hist_Mass4l_DY", "Mass 4l", 37, 70, 181));
 
-  hist_leptonPT_data = new TH1F("hist_leptonPT_data", "Lepton p_{T}", 20, 0, 300);
-  hist_leptonPT_higgs = new TH1F("hist_leptonPT_higgs", "Lepton p_{T}", 20, 0, 300);
-  hist_leptonPT_ZZ = new TH1F("hist_leptonPT_ZZ", "Lepton p_{T}", 20, 0, 300);
-  hist_leptonPT_DY = new TH1F("hist_leptonPT_DY", "Lepton p_{T}", 20, 0, 300);
+  hist_leptonPT.push_back(new TH1F("hist_leptonPT_data", "Lepton p_{T}", 20, 0, 300));
+  hist_leptonPT.push_back(new TH1F("hist_leptonPT_higgs", "Lepton p_{T}", 20, 0, 300));
+  hist_leptonPT.push_back(new TH1F("hist_leptonPT_ZZ", "Lepton p_{T}", 20, 0, 300));
+  hist_leptonPT.push_back(new TH1F("hist_leptonPT_DY", "Lepton p_{T}", 20, 0, 300));
 
-  hist_leptonETA_data = new TH1F("hist_leptonETA_data", "Lepton eta", 30, -4, 4);
-  hist_leptonETA_higgs = new TH1F("hist_leptonETA_higgs", "Lepton eta", 30, -4, 4);
-  hist_leptonETA_ZZ = new TH1F("hist_leptonETA_ZZ", "Lepton eta", 30, -4, 4);
-  hist_leptonETA_DY = new TH1F("hist_leptonETA_DY", "Lepton eta", 30, -4, 4);
+  hist_leptonETA.push_back(new TH1F("hist_leptonETA_data", "Lepton eta", 30, -4, 4));
+  hist_leptonETA.push_back(new TH1F("hist_leptonETA_higgs", "Lepton eta", 30, -4, 4));
+  hist_leptonETA.push_back(new TH1F("hist_leptonETA_ZZ", "Lepton eta", 30, -4, 4));
+  hist_leptonETA.push_back(new TH1F("hist_leptonETA_DY", "Lepton eta", 30, -4, 4));
 
   // -----------------------------------------------------------------------------
   // Files angeben, TTree auswaehlen und Histogramme fuellen
@@ -170,6 +170,14 @@ void HistogrammFuellen2mu2el(TTree* tree, TString name, double weight){
     return;
   }
 
+  // hier wird festgelegt, in welches Histogramm geschrieben wird
+  // (dem Prozess-Namen wird eine Position im Vektor zugeordnet)
+  int i_prozess;
+  if( name == "data")       i_prozess = 0;
+  else if( name == "higgs") i_prozess = 1;
+  else if( name == "ZZ")    i_prozess = 2;
+  else if( name == "DY")    i_prozess = 3;
+
   outputFile->cd();
 
   // die Variablen aus der ROOT Datei werden hier Variablen zugewiesen, die im Weiteren benutzt werden koennen
@@ -219,37 +227,11 @@ void HistogrammFuellen2mu2el(TTree* tree, TString name, double weight){
     final_v4 = Mu1_v4 + Mu2_v4 + El1_v4 + El2_v4;
     double mass4l = final_v4.M();
 
-    if(name == "data"){
-      hist_EventCount_data->Fill(1, weight);
-      hist_Mass4l_data->Fill(mass4l, weight);
-      for(auto lep: Leptonen){
-        hist_leptonPT_data->Fill(lep.Pt(), weight);
-        hist_leptonETA_data->Fill(lep.Eta(), weight);
-      }
-    }
-    else if(name == "higgs"){
-      hist_EventCount_higgs->Fill(1, weight);
-      hist_Mass4l_higgs->Fill(mass4l, weight);
-      for(auto lep: Leptonen){
-        hist_leptonPT_higgs->Fill(lep.Pt(), weight);
-        hist_leptonETA_higgs->Fill(lep.Eta(), weight);
-      }
-    }
-    else if(name == "ZZ"){
-      hist_EventCount_ZZ->Fill(1, weight);
-      hist_Mass4l_ZZ->Fill(mass4l, weight);
-      for(auto lep: Leptonen){
-        hist_leptonPT_ZZ->Fill(lep.Pt(), weight);
-        hist_leptonETA_ZZ->Fill(lep.Eta(), weight);
-      }
-    }
-    else if(name == "DY"){
-      hist_EventCount_DY->Fill(1, weight);
-      hist_Mass4l_DY->Fill(mass4l, weight);
-      for(auto lep: Leptonen){
-        hist_leptonPT_DY->Fill(lep.Pt(), weight);
-        hist_leptonETA_DY->Fill(lep.Eta(), weight);
-      }
+    hist_EventCount[i_prozess]->Fill(1, weight);
+    hist_Mass4l[i_prozess]->Fill(mass4l, weight);
+    for(auto lep: Leptonen){
+      hist_leptonPT[i_prozess]->Fill(lep.Pt(), weight);
+      hist_leptonETA[i_prozess]->Fill(lep.Eta(), weight);
     }
   }
 
@@ -268,6 +250,14 @@ void HistogrammFuellen4el(TTree* tree, TString name, double weight){
     cout << "    -- TTree is empty" << endl;
     return;
   }
+
+  // hier wird festgelegt, in welches Histogramm geschrieben wird
+  // (dem Prozess-Namen wird eine Position im Vektor zugeordnet)
+  int i_prozess;
+  if( name == "data")       i_prozess = 0;
+  else if( name == "higgs") i_prozess = 1;
+  else if( name == "ZZ")    i_prozess = 2;
+  else if( name == "DY")    i_prozess = 3;
 
   outputFile->cd();
 
@@ -416,37 +406,11 @@ void HistogrammFuellen4el(TTree* tree, TString name, double weight){
     if(massZ2 < 12. || massZ2 > 120.) continue;
 
     // Histogramme fuellen:
-    if(name == "data"){
-      hist_EventCount_data->Fill(1, weight);
-      hist_Mass4l_data->Fill(mass4l, weight);
-      for(auto lep: Leptonen){
-        hist_leptonPT_data->Fill(lep.Pt(), weight);
-        hist_leptonETA_data->Fill(lep.Eta(), weight);
-      }
-    }
-    else if(name == "higgs"){
-      hist_EventCount_higgs->Fill(1, weight);
-      hist_Mass4l_higgs->Fill(mass4l, weight);
-      for(auto lep: Leptonen){
-        hist_leptonPT_higgs->Fill(lep.Pt(), weight);
-        hist_leptonETA_higgs->Fill(lep.Eta(), weight);
-      }
-    }
-    else if(name == "ZZ"){
-      hist_EventCount_ZZ->Fill(1, weight);
-      hist_Mass4l_ZZ->Fill(mass4l, weight);
-      for(auto lep: Leptonen){
-        hist_leptonPT_ZZ->Fill(lep.Pt(), weight);
-        hist_leptonETA_ZZ->Fill(lep.Eta(), weight);
-      }
-    }
-    else if(name == "DY"){
-      hist_EventCount_DY->Fill(1, weight);
-      hist_Mass4l_DY->Fill(mass4l, weight);
-      for(auto lep: Leptonen){
-        hist_leptonPT_DY->Fill(lep.Pt(), weight);
-        hist_leptonETA_DY->Fill(lep.Eta(), weight);
-      }
+    hist_EventCount[i_prozess]->Fill(1, weight);
+    hist_Mass4l[i_prozess]->Fill(mass4l, weight);
+    for(auto lep: Leptonen){
+      hist_leptonPT[i_prozess]->Fill(lep.Pt(), weight);
+      hist_leptonETA[i_prozess]->Fill(lep.Eta(), weight);
     }
   }
 
@@ -465,6 +429,14 @@ void HistogrammFuellen4mu(TTree* tree, TString name, double weight){
     cout << "    -- TTree is empty" << endl;
     return;
   }
+
+  // hier wird festgelegt, in welches Histogramm geschrieben wird
+  // (dem Prozess-Namen wird eine Position im Vektor zugeordnet)
+  int i_prozess;
+  if( name == "data")       i_prozess = 0;
+  else if( name == "higgs") i_prozess = 1;
+  else if( name == "ZZ")    i_prozess = 2;
+  else if( name == "DY")    i_prozess = 3;
 
   outputFile->cd();
 
@@ -613,37 +585,11 @@ void HistogrammFuellen4mu(TTree* tree, TString name, double weight){
     if(massZ2 < 12. || massZ2 > 120.) continue;
 
     // Histogramme fuellen:
-    if(name == "data"){
-      hist_EventCount_data->Fill(1, weight);
-      hist_Mass4l_data->Fill(mass4l, weight);
-      for(auto lep: Leptonen){
-        hist_leptonPT_data->Fill(lep.Pt(), weight);
-        hist_leptonETA_data->Fill(lep.Eta(), weight);
-      }
-    }
-    else if(name == "higgs"){
-      hist_EventCount_higgs->Fill(1, weight);
-      hist_Mass4l_higgs->Fill(mass4l, weight);
-      for(auto lep: Leptonen){
-        hist_leptonPT_higgs->Fill(lep.Pt(), weight);
-        hist_leptonETA_higgs->Fill(lep.Eta(), weight);
-      }
-    }
-    else if(name == "ZZ"){
-      hist_EventCount_ZZ->Fill(1, weight);
-      hist_Mass4l_ZZ->Fill(mass4l, weight);
-      for(auto lep: Leptonen){
-        hist_leptonPT_ZZ->Fill(lep.Pt(), weight);
-        hist_leptonETA_ZZ->Fill(lep.Eta(), weight);
-      }
-    }
-    else if(name == "DY"){
-      hist_EventCount_DY->Fill(1, weight);
-      hist_Mass4l_DY->Fill(mass4l, weight);
-      for(auto lep: Leptonen){
-        hist_leptonPT_DY->Fill(lep.Pt(), weight);
-        hist_leptonETA_DY->Fill(lep.Eta(), weight);
-      }
+    hist_EventCount[i_prozess]->Fill(1, weight);
+    hist_Mass4l[i_prozess]->Fill(mass4l, weight);
+    for(auto lep: Leptonen){
+      hist_leptonPT[i_prozess]->Fill(lep.Pt(), weight);
+      hist_leptonETA[i_prozess]->Fill(lep.Eta(), weight);
     }
   }
 

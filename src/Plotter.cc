@@ -1,4 +1,4 @@
-#include "Plot.h"
+#include "../include/Plotter.h"
 
 /*
  In diesem Programm lest ihr die Output Datei aus 'Analyse' ein.
@@ -138,7 +138,7 @@ int main(int argc, char* argv[]){
   leg_count->AddEntry(h_leptonETA_higgs,"Higgs","f");
   leg_count->Draw();
   //speichern
-  Canvas0->SaveAs("EventCount.pdf");
+  Canvas0->SaveAs("plots/EventCount.pdf");
 
 
   TCanvas* Canvas = new TCanvas("mass","mass",600,600);
@@ -165,7 +165,7 @@ int main(int argc, char* argv[]){
   leg_mass->AddEntry(h_leptonETA_higgs,"Higgs","f");
   leg_mass->Draw();
   //speichern
-  Canvas->SaveAs("Mass4l.pdf");
+  Canvas->SaveAs("plots/Mass4l.pdf");
 
   TCanvas* Canvas2 = new TCanvas("pt","pt",600,600);
   gPad->SetLeftMargin(0.15);
@@ -191,7 +191,7 @@ int main(int argc, char* argv[]){
   leg_pt->AddEntry(h_leptonPT_higgs,"Higgs","f");
   leg_pt->Draw();
   //speichern
-  Canvas2->SaveAs("LeptonPT.pdf");
+  Canvas2->SaveAs("plots/LeptonPT.pdf");
 
   TCanvas* Canvas3 = new TCanvas("eta","eta",600,600);
   gPad->SetLeftMargin(0.15);
@@ -217,22 +217,7 @@ int main(int argc, char* argv[]){
   leg_eta->AddEntry(h_leptonETA_higgs,"Higgs","f");
   leg_eta->Draw();
   //speichern
-  Canvas3->SaveAs("LeptonETA.pdf");
-
-  TCanvas* Canvas4 = new TCanvas("sb_mass","sb_mass",600,600);
-  TH1F* h_Mass4l_bkg = (TH1F*) h_Mass4l_ZZ->Clone();
-  h_Mass4l_bkg->Add(h_Mass4l_DY, 1);
-  TH1F* sb_mass = SB(h_Mass4l_higgs, h_Mass4l_bkg);
-  sb_mass->Draw("HIST");
-  Canvas4->SaveAs("SignalOverBackground_mass.pdf");
-
-  TCanvas* Canvas5 = new TCanvas("sb","sb",600,600);
-  TH1F* h_EventCount_bkg = (TH1F*) h_EventCount_ZZ->Clone();
-  h_EventCount_bkg->Add(h_EventCount_DY, 1);
-  TH1F* sb = SB(h_EventCount_higgs, h_EventCount_bkg);
-  sb->Draw("HIST");
-  Canvas5->SaveAs("SignalOverBackground.pdf");
-
+  Canvas3->SaveAs("plots/LeptonETA.pdf");
 
   return 0;
 }

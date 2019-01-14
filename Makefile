@@ -1,6 +1,13 @@
 CC = g++
 ROOTFLAGS = `root-config --cflags --glibs`
 
-all: Analyse.cc Analyse.h Plot.cc Plot.h
-	$(CC) -g -o Analyse Analyse.cc Analyse.h $(ROOTFLAGS)
-	$(CC) -g -o Plot Plot.cc Plot.h $(ROOTFLAGS)
+all: Analyse Plotter
+
+Analyse: src/Analyse.cc include/Analyse.h
+	$(CC) -g -o Analyse src/Analyse.cc include/Analyse.h $(ROOTFLAGS)
+
+Plotter: src/Plotter.cc include/Plotter.h
+	$(CC) -g -o Plotter src/Plotter.cc include/Plotter.h $(ROOTFLAGS)
+
+clean:
+	rm -f Analyse Plotter

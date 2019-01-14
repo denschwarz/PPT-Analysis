@@ -1,4 +1,4 @@
-#include "Analyse.h"
+#include "../include/Analyse.h"
 
 /*
 Dies ist der eigentliche Analyse-Code.

@@ -8,6 +8,9 @@
 #include <TH1.h>
 #include <vector>
 #include <TLorentzVector.h>
+#include "ReadLeptons.h"
+#include "Lepton.h"
+#include "Samples.h"
 
 using namespace std;
 
@@ -31,44 +34,7 @@ Int_t charge_el1, charge_el2, charge_el3, charge_el4;
 // Histogramme hier deklarieren
 vector<TH1F*> hist_EventCount;
 vector<TH1F*> hist_Mass4l;
-vector<TH1F*> hist_leptonPT;
-vector<TH1F*> hist_leptonETA;
+vector<TH1F*> hist_muonPT;
+vector<TH1F*> hist_elecPT;
 
 TFile* outputFile;
-
-// einige konstante Werte
-
-// Luminositaet 2012 und 2011
-// (ist ein Maß wie viele Ereignisse mit dem Detektor aufgezeichnet wurden)
-Double_t lumi12 = 11580.;
-Double_t lumi11 = 2330.;
-// MC Wirkungsquerschnitt
-// (so etwas wie die Wahrscheinlichkeit, dass ein Prozess stattfindet)
-Double_t xsecZZ412 = 0.077;
-Double_t xsecZZ2mu2e12 = 0.18;
-Double_t xsecZZ411 = 0.067;
-Double_t xsecZZ2mu2e11 = 0.15;
-Double_t xsecDY5012 = 2955.;
-Double_t xsecDY1012 = 10.742;
-Double_t xsecDY5011 = 2475.;
-Double_t xsecDY1011 = 9507.;
-// Higgs  Wirkungsquerschnitt
-Double_t xsecHZZ12 = 0.0065;
-Double_t xsecHZZ11 = 0.0057;
-// Zusatzlicher Faktor fuer ZZ und DY
-// ( im Ramen der vollen Analyse gemessen)
-Double_t sfZZ = 1.3;
-Double_t sfDY = 1.12;
-// Anzahl an simulierten Ereignissen
-Int_t nevtZZ4mu12 = 1499064;
-Int_t nevtZZ4e12 = 1499093;
-Int_t nevtZZ2mu2e12 = 1497445;
-Int_t nevtHZZ12 = 299973;
-Int_t nevtDY5012 = 29426492;
-Int_t nevtDY1012 = 6462290;
-Int_t nevtZZ4mu11 = 1447136;
-Int_t nevtZZ4e11 = 1493308;
-Int_t nevtZZ2mu2e11 = 1479879;
-Int_t nevtHZZ11 = 299683;
-Int_t nevtDY5011 = 36408225;
-Int_t nevtDY1011 = 39909640;

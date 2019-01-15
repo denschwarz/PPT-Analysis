@@ -3,8 +3,8 @@ ROOTFLAGS = `root-config --cflags --glibs`
 
 all: Analyse Plotter
 
-Analyse: src/Analyse.cc include/Analyse.h
-	$(CC) -g -o Analyse src/Analyse.cc include/Analyse.h $(ROOTFLAGS)
+Analyse: src/Analyse.cc include/Analyse.h src/ReadLeptons.cc include/ReadLeptons.h src/Lepton.cc include/Lepton.h include/Samples.h
+	$(CC) -g -o Analyse src/Analyse.cc include/Analyse.h src/ReadLeptons.cc include/ReadLeptons.h src/Lepton.cc include/Lepton.h include/Samples.h $(ROOTFLAGS)
 
 Plotter: src/Plotter.cc include/Plotter.h
 	$(CC) -g -o Plotter src/Plotter.cc include/Plotter.h $(ROOTFLAGS)

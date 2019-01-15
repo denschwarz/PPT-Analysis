@@ -23,15 +23,15 @@ int main(int argc, char* argv[]){
   TH1F* h_Mass4l_ZZ = (TH1F*)file->Get("hist_Mass4l_ZZ");
   TH1F* h_Mass4l_DY = (TH1F*)file->Get("hist_Mass4l_DY");
 
-  TH1F* h_leptonPT_data = (TH1F*)file->Get("hist_leptonPT_data");
-  TH1F* h_leptonPT_higgs = (TH1F*)file->Get("hist_leptonPT_higgs");
-  TH1F* h_leptonPT_ZZ = (TH1F*)file->Get("hist_leptonPT_ZZ");
-  TH1F* h_leptonPT_DY = (TH1F*)file->Get("hist_leptonPT_DY");
+  TH1F* h_muonPT_data = (TH1F*)file->Get("hist_muonPT_data");
+  TH1F* h_muonPT_higgs = (TH1F*)file->Get("hist_muonPT_higgs");
+  TH1F* h_muonPT_ZZ = (TH1F*)file->Get("hist_muonPT_ZZ");
+  TH1F* h_muonPT_DY = (TH1F*)file->Get("hist_muonPT_DY");
 
-  TH1F* h_leptonETA_data = (TH1F*)file->Get("hist_leptonETA_data");
-  TH1F* h_leptonETA_higgs = (TH1F*)file->Get("hist_leptonETA_higgs");
-  TH1F* h_leptonETA_ZZ = (TH1F*)file->Get("hist_leptonETA_ZZ");
-  TH1F* h_leptonETA_DY = (TH1F*)file->Get("hist_leptonETA_DY");
+  TH1F* h_elecPT_data = (TH1F*)file->Get("hist_elecPT_data");
+  TH1F* h_elecPT_higgs = (TH1F*)file->Get("hist_elecPT_higgs");
+  TH1F* h_elecPT_ZZ = (TH1F*)file->Get("hist_elecPT_ZZ");
+  TH1F* h_elecPT_DY = (TH1F*)file->Get("hist_elecPT_DY");
 
   // ein paar Optionen fuer Farben und Linien der einzelnen Histogramme
   h_EventCount_data->SetMarkerStyle(20);
@@ -60,31 +60,31 @@ int main(int argc, char* argv[]){
   h_Mass4l_higgs->SetLineColor(kRed);
   h_Mass4l_higgs->SetLineWidth(2);
 
-  h_leptonPT_data->SetMarkerStyle(20);
-  h_leptonPT_data->SetMarkerSize(0.8);
-  h_leptonPT_data->SetLineColor(1);
-  h_leptonPT_ZZ->SetFillColor(kAzure-9);
-  h_leptonPT_ZZ->SetLineColor(kBlack);
-  h_leptonPT_ZZ->SetLineWidth(2);
-  h_leptonPT_DY->SetFillColor(kGreen+2);
-  h_leptonPT_DY->SetLineColor(kBlack);
-  h_leptonPT_DY->SetLineWidth(2);
-  h_leptonPT_higgs->SetFillColor(kWhite);
-  h_leptonPT_higgs->SetLineColor(kRed);
-  h_leptonPT_higgs->SetLineWidth(2);
+  h_muonPT_data->SetMarkerStyle(20);
+  h_muonPT_data->SetMarkerSize(0.8);
+  h_muonPT_data->SetLineColor(1);
+  h_muonPT_ZZ->SetFillColor(kAzure-9);
+  h_muonPT_ZZ->SetLineColor(kBlack);
+  h_muonPT_ZZ->SetLineWidth(2);
+  h_muonPT_DY->SetFillColor(kGreen+2);
+  h_muonPT_DY->SetLineColor(kBlack);
+  h_muonPT_DY->SetLineWidth(2);
+  h_muonPT_higgs->SetFillColor(kWhite);
+  h_muonPT_higgs->SetLineColor(kRed);
+  h_muonPT_higgs->SetLineWidth(2);
 
-  h_leptonETA_data->SetMarkerStyle(20);
-  h_leptonETA_data->SetMarkerSize(0.8);
-  h_leptonETA_data->SetLineColor(1);
-  h_leptonETA_ZZ->SetFillColor(kAzure-9);
-  h_leptonETA_ZZ->SetLineColor(kBlack);
-  h_leptonETA_ZZ->SetLineWidth(2);
-  h_leptonETA_DY->SetFillColor(kGreen+2);
-  h_leptonETA_DY->SetLineColor(kBlack);
-  h_leptonETA_DY->SetLineWidth(2);
-  h_leptonETA_higgs->SetFillColor(kWhite);
-  h_leptonETA_higgs->SetLineColor(kRed);
-  h_leptonETA_higgs->SetLineWidth(2);
+  h_elecPT_data->SetMarkerStyle(20);
+  h_elecPT_data->SetMarkerSize(0.8);
+  h_elecPT_data->SetLineColor(1);
+  h_elecPT_ZZ->SetFillColor(kAzure-9);
+  h_elecPT_ZZ->SetLineColor(kBlack);
+  h_elecPT_ZZ->SetLineWidth(2);
+  h_elecPT_DY->SetFillColor(kGreen+2);
+  h_elecPT_DY->SetLineColor(kBlack);
+  h_elecPT_DY->SetLineWidth(2);
+  h_elecPT_higgs->SetFillColor(kWhite);
+  h_elecPT_higgs->SetLineColor(kRed);
+  h_elecPT_higgs->SetLineWidth(2);
 
   // nun sollen alle Simulationen "gestapelt" werden
   THStack *stack_EventCount = new THStack("","");
@@ -97,15 +97,15 @@ int main(int argc, char* argv[]){
   stack_Mass4l->Add(h_Mass4l_ZZ);
   stack_Mass4l->Add(h_Mass4l_higgs);
 
-  THStack *stack_leptonPT = new THStack("","");
-  stack_leptonPT->Add(h_leptonPT_DY);
-  stack_leptonPT->Add(h_leptonPT_ZZ);
-  stack_leptonPT->Add(h_leptonPT_higgs);
+  THStack *stack_muonPT = new THStack("","");
+  stack_muonPT->Add(h_muonPT_DY);
+  stack_muonPT->Add(h_muonPT_ZZ);
+  stack_muonPT->Add(h_muonPT_higgs);
 
-  THStack *stack_leptonETA = new THStack("","");
-  stack_leptonETA->Add(h_leptonETA_DY);
-  stack_leptonETA->Add(h_leptonETA_ZZ);
-  stack_leptonETA->Add(h_leptonETA_higgs);
+  THStack *stack_elecPT = new THStack("","");
+  stack_elecPT->Add(h_elecPT_DY);
+  stack_elecPT->Add(h_elecPT_ZZ);
+  stack_elecPT->Add(h_elecPT_higgs);
 
   // ein paar allgemeine Style Optionen
   gStyle->SetOptStat(kFALSE);
@@ -132,10 +132,10 @@ int main(int argc, char* argv[]){
   // Legende
   TLegend* leg_count = new TLegend(0.60,0.60,0.87,0.85);
   leg_count->SetFillStyle(0);
-  leg_count->AddEntry(h_leptonETA_data,"data","pl");
-  leg_count->AddEntry(h_leptonETA_ZZ,"ZZ","f");
-  leg_count->AddEntry(h_leptonETA_DY,"Z/#gamma + X","f");
-  leg_count->AddEntry(h_leptonETA_higgs,"Higgs","f");
+  leg_count->AddEntry(h_elecPT_data,"data","pl");
+  leg_count->AddEntry(h_elecPT_ZZ,"ZZ","f");
+  leg_count->AddEntry(h_elecPT_DY,"Z/#gamma + X","f");
+  leg_count->AddEntry(h_elecPT_higgs,"Higgs","f");
   leg_count->Draw();
   //speichern
   Canvas0->SaveAs("plots/EventCount.pdf");
@@ -159,77 +159,65 @@ int main(int argc, char* argv[]){
   // Legende
   TLegend* leg_mass = new TLegend(0.60,0.60,0.87,0.85);
   leg_mass->SetFillStyle(0);
-  leg_mass->AddEntry(h_leptonETA_data,"data","pl");
-  leg_mass->AddEntry(h_leptonETA_ZZ,"ZZ","f");
-  leg_mass->AddEntry(h_leptonETA_DY,"Z/#gamma + X","f");
-  leg_mass->AddEntry(h_leptonETA_higgs,"Higgs","f");
+  leg_mass->AddEntry(h_elecPT_data,"data","pl");
+  leg_mass->AddEntry(h_elecPT_ZZ,"ZZ","f");
+  leg_mass->AddEntry(h_elecPT_DY,"Z/#gamma + X","f");
+  leg_mass->AddEntry(h_elecPT_higgs,"Higgs","f");
   leg_mass->Draw();
   //speichern
   Canvas->SaveAs("plots/Mass4l.pdf");
 
   TCanvas* Canvas2 = new TCanvas("pt","pt",600,600);
   gPad->SetLeftMargin(0.15);
-  stack_leptonPT->Draw("HIST");
+  stack_muonPT->Draw("HIST");
   // Achsen
-  stack_leptonPT->GetXaxis()->SetRangeUser( 0, 200);
-  stack_leptonPT->SetMaximum(400);
-  stack_leptonPT->GetXaxis()->SetTitle("Lepton p_{T} [GeV]");
-  stack_leptonPT->GetYaxis()->SetTitle("events");
-  stack_leptonPT->GetXaxis()->SetTitleSize(0.04);
-  stack_leptonPT->GetXaxis()->SetTitleOffset(0.9);
-  stack_leptonPT->GetYaxis()->SetTitleSize(0.05);
-  stack_leptonPT->GetYaxis()->SetTitleOffset(1.1);
+  stack_muonPT->GetXaxis()->SetRangeUser( 0, 200);
+  stack_muonPT->SetMaximum(200);
+  stack_muonPT->GetXaxis()->SetTitle("Muon p_{T} [GeV]");
+  stack_muonPT->GetYaxis()->SetTitle("events");
+  stack_muonPT->GetXaxis()->SetTitleSize(0.04);
+  stack_muonPT->GetXaxis()->SetTitleOffset(0.9);
+  stack_muonPT->GetYaxis()->SetTitleSize(0.05);
+  stack_muonPT->GetYaxis()->SetTitleOffset(1.1);
   // Draw
-  stack_leptonPT->Draw("HIST");
-  h_leptonPT_data->Draw("E1 SAME");
+  stack_muonPT->Draw("HIST");
+  h_muonPT_data->Draw("E1 SAME");
   // Legende
   TLegend* leg_pt = new TLegend(0.60,0.60,0.87,0.85);
   leg_pt->SetFillStyle(0);
-  leg_pt->AddEntry(h_leptonPT_data,"data","pl");
-  leg_pt->AddEntry(h_leptonPT_ZZ,"ZZ","f");
-  leg_pt->AddEntry(h_leptonPT_DY,"Z/#gamma + X","f");
-  leg_pt->AddEntry(h_leptonPT_higgs,"Higgs","f");
+  leg_pt->AddEntry(h_muonPT_data,"data","pl");
+  leg_pt->AddEntry(h_muonPT_ZZ,"ZZ","f");
+  leg_pt->AddEntry(h_muonPT_DY,"Z/#gamma + X","f");
+  leg_pt->AddEntry(h_muonPT_higgs,"Higgs","f");
   leg_pt->Draw();
   //speichern
-  Canvas2->SaveAs("plots/LeptonPT.pdf");
+  Canvas2->SaveAs("plots/MuonPT.pdf");
 
   TCanvas* Canvas3 = new TCanvas("eta","eta",600,600);
   gPad->SetLeftMargin(0.15);
-  stack_leptonETA->Draw("HIST");
+  stack_elecPT->Draw("HIST");
   // Achsen
-  stack_leptonETA->GetXaxis()->SetRangeUser(-3, 3);
-  stack_leptonETA->SetMaximum(150);
-  stack_leptonETA->GetXaxis()->SetTitle("Lepton #eta [GeV]");
-  stack_leptonETA->GetYaxis()->SetTitle("events");
-  stack_leptonETA->GetXaxis()->SetTitleSize(0.04);
-  stack_leptonETA->GetXaxis()->SetTitleOffset(0.9);
-  stack_leptonETA->GetYaxis()->SetTitleSize(0.05);
-  stack_leptonETA->GetYaxis()->SetTitleOffset(1.1);
+  stack_elecPT->GetXaxis()->SetRangeUser(0, 200);
+  stack_elecPT->SetMaximum(200);
+  stack_elecPT->GetXaxis()->SetTitle("Electron p_{T} [GeV]");
+  stack_elecPT->GetYaxis()->SetTitle("events");
+  stack_elecPT->GetXaxis()->SetTitleSize(0.04);
+  stack_elecPT->GetXaxis()->SetTitleOffset(0.9);
+  stack_elecPT->GetYaxis()->SetTitleSize(0.05);
+  stack_elecPT->GetYaxis()->SetTitleOffset(1.1);
   // Draw
-  stack_leptonETA->Draw("HIST");
-  h_leptonETA_data->Draw("E1 SAME");
+  stack_elecPT->Draw("HIST");
+  h_elecPT_data->Draw("E1 SAME");
   // Legende
   TLegend* leg_eta = new TLegend(0.60,0.60,0.87,0.85);
   leg_eta->SetFillStyle(0);
-  leg_eta->AddEntry(h_leptonETA_data,"data","pl");
-  leg_eta->AddEntry(h_leptonETA_ZZ,"ZZ","f");
-  leg_eta->AddEntry(h_leptonETA_DY,"Z/#gamma + X","f");
-  leg_eta->AddEntry(h_leptonETA_higgs,"Higgs","f");
+  leg_eta->AddEntry(h_elecPT_data,"data","pl");
+  leg_eta->AddEntry(h_elecPT_ZZ,"ZZ","f");
+  leg_eta->AddEntry(h_elecPT_DY,"Z/#gamma + X","f");
+  leg_eta->AddEntry(h_elecPT_higgs,"Higgs","f");
   leg_eta->Draw();
   //speichern
-  Canvas3->SaveAs("plots/LeptonETA.pdf");
+  Canvas3->SaveAs("plots/ElectronPT.pdf");
 
   return 0;
-}
-
-TH1F* SB(TH1F* Signal, TH1F* Background){
-  int nbins = Signal->GetSize()-2;
-  TH1F* h_SB = (TH1F*) Signal->Clone();
-  h_SB->Reset();
-  for(int i=1; i<=nbins; i++){
-    double sig = Signal->GetBinContent(i);
-    double bkg = Background->GetBinContent(i);
-    h_SB->SetBinContent(i, sig/sqrt(sig+bkg));
-  }
-  return h_SB;
 }

@@ -19,7 +19,7 @@ public:
   ReadLeptons(TString name, TString channel);
   vector< vector<Lepton> > GetElectrons(){return Electrons;};
   vector< vector<Lepton> > GetMuons(){return Muons;};
-
+  int GetEventCount(){return Nevents;};
 private:
   vector< vector<Lepton> > Muons, Electrons;
 
@@ -34,4 +34,5 @@ private:
   Double_t px_el4, py_el4, pz_el4, E_el4;
   Int_t charge_mu1, charge_mu2, charge_mu3, charge_mu4;
   Int_t charge_el1, charge_el2, charge_el3, charge_el4;
+  int Nevents;
 };

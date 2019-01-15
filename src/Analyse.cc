@@ -43,21 +43,29 @@ int main(int argc, char* argv[]){
   int Nsamples = sample_names.size();
   for(int isample=0; isample<Nsamples; isample++){ // loop over all samples
     for(auto channel: sample_channels[isample]){   // loop over all possible channels (4mu, 4el, 2mu,2el)
-      // read out files and get Muons and Electrons
+      cout << "Analising " << sample_names[isample] << "..." << endl;
+
+      // read out files and get Event count, Muons and Electrons
       ReadLeptons reader(sample_names[isample], channel);
+      int Nevents = reader.GetEventCount();
       vector< vector<Lepton> > Muons = reader.GetMuons();
       vector< vector<Lepton> > Elecs = reader.GetElectrons();
+      ////
 
       // now loop over every event
-      for(int ievent=0; ievent<Muons.size(); ievent++){
+      for(int ievent=0; ievent<Nevents; ievent++){
+
         // fill hists with Muons
         for(int i=0; i<Muons[ievent].size(); i++){
           hist_muonPT[sample_histindex[isample]]->Fill(Muons[ievent][i].Pt(), sample_weights[isample]);
         }
+        ////
+
         // fill hists with electrons
         for(int i=0; i<Elecs[ievent].size(); i++){
           hist_elecPT[sample_histindex[isample]]->Fill(Elecs[ievent][i].Pt(), sample_weights[isample]);
         }
+        ////
       }
     }
   }

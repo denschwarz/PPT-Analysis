@@ -7,8 +7,8 @@ ReadLeptons::ReadLeptons(TString name, TString channel){
   if(channel == "2mu2el") tree = (TTree *) file->Get("demo/tree2mu2e");
   if(channel == "4el") tree = (TTree *) file->Get("demo/tree4e");
   if(channel == "4mu") tree = (TTree *) file->Get("demo/tree4mu");
-
   if(channel == "2mu2el"){
+    Nevents = tree->GetEntriesFast();
     tree->ResetBranchAddresses();
     tree->SetBranchAddress("px_2mu1",&px_mu1);
     tree->SetBranchAddress("py_2mu1",&py_mu1);
@@ -27,7 +27,7 @@ ReadLeptons::ReadLeptons(TString name, TString channel){
     tree->SetBranchAddress("pz_2e2",&pz_el2);
     tree->SetBranchAddress("E_2e2",&E_el2);
     tree->SetBranchStatus("*",1);
-    for(Int_t ievent=0; ievent < tree->GetEntriesFast(); ievent++) {
+    for(Int_t ievent=0; ievent < Nevents; ievent++) {
       if(tree->GetEntry(ievent)<=0) break;
       TLorentzVector Mu1, Mu2, El1, El2;
       Mu1.SetPxPyPzE(px_mu1, py_mu1, pz_mu1, E_mu1);
@@ -48,6 +48,7 @@ ReadLeptons::ReadLeptons(TString name, TString channel){
     }
   }
   else if(channel == "4el"){
+    Nevents = tree->GetEntriesFast();
     tree->ResetBranchAddresses();
     tree->SetBranchAddress("px_e1",&px_el1);
     tree->SetBranchAddress("py_e1",&py_el1);
@@ -70,7 +71,7 @@ ReadLeptons::ReadLeptons(TString name, TString channel){
     tree->SetBranchAddress("charge_e3",&charge_el3);
     tree->SetBranchAddress("charge_e4",&charge_el4);
     tree->SetBranchStatus("*",1);
-    for(Int_t ievent=0; ievent < tree->GetEntriesFast(); ievent++) {
+    for(Int_t ievent=0; ievent < Nevents; ievent++) {
       if(tree->GetEntry(ievent)<=0) break;
       TLorentzVector El1, El2, El3, El4;
       El1.SetPxPyPzE(px_el1, py_el1, pz_el1, E_el1);
@@ -91,6 +92,7 @@ ReadLeptons::ReadLeptons(TString name, TString channel){
     }
   }
   else if(channel == "4mu"){
+    Nevents = tree->GetEntriesFast();
     tree->ResetBranchAddresses();
     tree->SetBranchAddress("px_mu1",&px_mu1);
     tree->SetBranchAddress("py_mu1",&py_mu1);
@@ -113,7 +115,7 @@ ReadLeptons::ReadLeptons(TString name, TString channel){
     tree->SetBranchAddress("charge_mu3",&charge_mu3);
     tree->SetBranchAddress("charge_mu4",&charge_mu4);
     tree->SetBranchStatus("*",1);
-    for(Int_t ievent=0; ievent < tree->GetEntriesFast(); ievent++) {
+    for(Int_t ievent=0; ievent < Nevents; ievent++) {
       if(tree->GetEntry(ievent)<=0) break;
       TLorentzVector Mu1, Mu2, Mu3, Mu4;
       Mu1.SetPxPyPzE(px_mu1, py_mu1, pz_mu1, E_mu1);

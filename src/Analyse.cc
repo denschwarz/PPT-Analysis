@@ -70,6 +70,8 @@ int main(int argc, char* argv[]){
   return 0;
 }
 
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Hier werden Histogramme kreiert
 vector<TH1F*> CreateHistograms(TString histname, int nbins, double min, double max){
   vector<TH1F*> hists;
@@ -79,7 +81,8 @@ vector<TH1F*> CreateHistograms(TString histname, int nbins, double min, double m
   }
   return hists;
 }
-
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // mit dieser Funtion werden Histogramme gefüllt
 void FillHistogram(vector<TH1F*> hists, double value, double weight, TString process){
   int index;

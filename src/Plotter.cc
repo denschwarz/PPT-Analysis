@@ -12,7 +12,8 @@ int main(int argc, char* argv[]){
   // Datei mit Histogrammen einlesen
   file = new TFile("Histograms.root");
 
-  // Histogramme aus Datei auslesen und ein einzelnes Histogramm fuer jedes Signal/Untergrund erstellen
+  // Histogramme aus Datei auslesen
+  // und ein einzelnes Histogramm fuer jedes Signal/Untergrund erstellen
   vector<TH1F*> h_EventCount = ReadHistograms("EventCount");
   vector<TH1F*> h_muonPT = ReadHistograms("muonPT");
   vector<TH1F*> h_elecPT = ReadHistograms("elecPT");
@@ -26,6 +27,9 @@ int main(int argc, char* argv[]){
   return 0;
 }
 
+
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Funktion um Histogramme aus Root Datei zu lesen
 vector<TH1F*> ReadHistograms(TString histname){
   vector<TH1F*> hists;
@@ -36,6 +40,8 @@ vector<TH1F*> ReadHistograms(TString histname){
   return hists;
 }
 
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Hier passiert das eigentliche plotten
 void CreatePlot(vector<TH1F*> hists, TString filename, TString xtitle, double xmin, double xmax, double ymax){
   gStyle->SetOptStat(kFALSE);            // allgemeine Style Option
@@ -59,6 +65,7 @@ void CreatePlot(vector<TH1F*> hists, TString filename, TString xtitle, double xm
   stack->Add(hists[3]);
   stack->Add(hists[2]);
   stack->Add(hists[1]);
+  // Canvas erzeugen
   TCanvas* C = new TCanvas("c","c",600,600);
   gPad->SetLeftMargin(0.15);
   stack->Draw("HIST");

@@ -9,7 +9,7 @@
 #include <vector>
 #include <TLorentzVector.h>
 #include "ReadLeptons.h"
-#include "Lepton.h"
+#include "Particle.h"
 #include "Samples.h"
 
 using namespace std;

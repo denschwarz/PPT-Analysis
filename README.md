@@ -17,8 +17,8 @@ In every file there is a flat tree containing variables like px, py, pz, E of ev
 
 3) Helper Classes
 
-The classes Lepton and ReadLeptons help reading the rootfiles.
-A Lepton has a 4-vector and a charge. Also it can return values like pT.
+The classes Particle and ReadLeptons help reading the rootfiles.
+A Particle has a 4-vector and a charge. Also it can return values like pT.
 ReadLeptons takes the rootfiles as input and reads the trees.
 From this, it creates vectors of muons and electrons.
 Every event has a vector of muons and a vector of electrons.

@@ -34,7 +34,7 @@ ReadLeptons::ReadLeptons(TString name, TString channel){
       Mu2.SetPxPyPzE(px_mu2, py_mu2, pz_mu2, E_mu2);
       El1.SetPxPyPzE(px_el1, py_el1, pz_el1, E_el1);
       El2.SetPxPyPzE(px_el2, py_el2, pz_el2, E_el2);
-      Lepton Muon1, Muon2, Elec1, Elec2;
+      Particle Muon1, Muon2, Elec1, Elec2;
       Muon1.SetVector(Mu1);
       Muon1.SetCharge(-1);
       Muon2.SetVector(Mu2);
@@ -78,7 +78,7 @@ ReadLeptons::ReadLeptons(TString name, TString channel){
       El2.SetPxPyPzE(px_el2, py_el2, pz_el2, E_el2);
       El3.SetPxPyPzE(px_el3, py_el3, pz_el3, E_el3);
       El4.SetPxPyPzE(px_el4, py_el4, pz_el4, E_el4);
-      Lepton Elec1, Elec2, Elec3, Elec4;
+      Particle Elec1, Elec2, Elec3, Elec4;
       Elec1.SetVector(El1);
       Elec2.SetVector(El2);
       Elec3.SetVector(El3);
@@ -122,7 +122,7 @@ ReadLeptons::ReadLeptons(TString name, TString channel){
       Mu2.SetPxPyPzE(px_mu2, py_mu2, pz_mu2, E_mu2);
       Mu3.SetPxPyPzE(px_mu3, py_mu3, pz_mu3, E_mu3);
       Mu4.SetPxPyPzE(px_mu4, py_mu4, pz_mu4, E_mu4);
-      Lepton Muon1, Muon2, Muon3, Muon4;
+      Particle Muon1, Muon2, Muon3, Muon4;
       Muon1.SetVector(Mu1);
       Muon2.SetVector(Mu2);
       Muon3.SetVector(Mu3);

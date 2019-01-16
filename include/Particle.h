@@ -2,7 +2,7 @@
 #include <vector>
 #include <TLorentzVector.h>
 
-class Lepton{
+class Particle{
 public:
   void SetVector(TLorentzVector);
   void SetCharge(Int_t);

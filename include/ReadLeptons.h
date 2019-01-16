@@ -9,7 +9,7 @@
 #include <TH1.h>
 #include <vector>
 #include <TLorentzVector.h>
-#include "Lepton.h"
+#include "Particle.h"
 
 using namespace std;
 
@@ -17,11 +17,11 @@ class ReadLeptons{
 
 public:
   ReadLeptons(TString name, TString channel);
-  vector< vector<Lepton> > GetElectrons(){return Electrons;};
-  vector< vector<Lepton> > GetMuons(){return Muons;};
+  vector< vector<Particle> > GetElectrons(){return Electrons;};
+  vector< vector<Particle> > GetMuons(){return Muons;};
   int GetEventCount(){return Nevents;};
 private:
-  vector< vector<Lepton> > Muons, Electrons;
+  vector< vector<Particle> > Muons, Electrons;
 
   // Variablen werden hier deklariert
   Double_t px_mu1, py_mu1, pz_mu1, E_mu1;

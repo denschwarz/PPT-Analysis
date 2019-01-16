@@ -48,8 +48,8 @@ int main(int argc, char* argv[]){
       // Hier werden die Dateien ausgelesen und Vektoren von Myonen und Elektronen erstellt
       ReadLeptons reader(sample_names[isample], channel);
       int Nevents = reader.GetEventCount();
-      vector< vector<Lepton> > Muons = reader.GetMuons();
-      vector< vector<Lepton> > Elecs = reader.GetElectrons();
+      vector< vector<Particle> > Muons = reader.GetMuons();
+      vector< vector<Particle> > Elecs = reader.GetElectrons();
       ////
 
       // Gewicht, Histindex auslesen

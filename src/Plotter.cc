@@ -18,11 +18,6 @@ int main(int argc, char* argv[]){
   TH1F* h_EventCount_ZZ = (TH1F*)file->Get("hist_EventCount_ZZ");
   TH1F* h_EventCount_DY = (TH1F*)file->Get("hist_EventCount_DY");
 
-  TH1F* h_Mass4l_data = (TH1F*)file->Get("hist_Mass4l_data");
-  TH1F* h_Mass4l_higgs = (TH1F*)file->Get("hist_Mass4l_higgs");
-  TH1F* h_Mass4l_ZZ = (TH1F*)file->Get("hist_Mass4l_ZZ");
-  TH1F* h_Mass4l_DY = (TH1F*)file->Get("hist_Mass4l_DY");
-
   TH1F* h_muonPT_data = (TH1F*)file->Get("hist_muonPT_data");
   TH1F* h_muonPT_higgs = (TH1F*)file->Get("hist_muonPT_higgs");
   TH1F* h_muonPT_ZZ = (TH1F*)file->Get("hist_muonPT_ZZ");

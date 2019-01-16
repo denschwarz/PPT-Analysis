@@ -56,7 +56,7 @@ double weight_DY50_12   = (lumi12 * xsecDY5012 * sfDY) / nevtDY5012;
 double weight_DY10_11   = (lumi11 * xsecDY1011 * sfDY) / nevtDY1011;
 double weight_DY50_11   = (lumi11 * xsecDY5011 * sfDY) / nevtDY5011;
 
-// List of all sample names
+// Liste aller Dateinamen
 vector<TString> sample_names = {
   "DATA_Elektron_2011",
   "DATA_Elektron_2012",
@@ -76,7 +76,7 @@ vector<TString> sample_names = {
   "MC_Higgs_2012"
 };
 
-// weights for all samples
+// Gewichte für alle Prozesse
 vector<double> sample_weights = {
   1,
   1,
@@ -96,9 +96,9 @@ vector<double> sample_weights = {
   weight_Higgs_12
 };
 
-// declare which channels to use in which samples
+// Hier sind mögliche Kanäle für jede Datei angegeben
 vector<vector<TString>> sample_channels = {
-  // data (only use muon data for 2mu2el to avoid double counting)
+  // data (nur Myon Datei für 2mu2el benutzen, weil sonst doppelt gezählt wird)
   {"4el"},
   {"4el"},
   {"4mu", "2mu2el"},
@@ -120,7 +120,8 @@ vector<vector<TString>> sample_channels = {
   {"4el", "4mu", "2mu2el"}
 };
 
-// set hist index (same index for same process) (data 0, Higgs 1, ZZ 2, DY 3)
+// Histogramm Index gibt an zu welchem Prozess eine Datei gehört
+// (data 0, Higgs 1, ZZ 2, DY 3)
 vector<int> sample_histindex = {
   // data
   0,

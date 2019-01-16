@@ -15,14 +15,5 @@
 using namespace std;
 
 // Funktionen deklarieren
-void HistogrammFuellen2mu2el(TTree *, TString, double);
-void HistogrammFuellen4el(TTree *, TString, double);
-void HistogrammFuellen4mu(TTree *, TString, double);
-
-// Vektoren von Histogrammen deklarieren
-vector<TH1F*> hist_EventCount;
-vector<TH1F*> hist_muonPT;
-vector<TH1F*> hist_elecPT;
-
-// Output Datei deklarieren
-TFile* outputFile;
+vector<TH1F*> CreateHistograms(TString, int, double, double);
+void FillHistogram(vector<TH1F*>, double, double, TString);

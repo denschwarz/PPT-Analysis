@@ -16,3 +16,6 @@
 #include <TLorentzVector.h>
 
 using namespace std;
+TFile* file;
+vector<TH1F*> ReadHistograms(TString);
+void CreatePlot(vector<TH1F*>, TString, TString, double, double, double);

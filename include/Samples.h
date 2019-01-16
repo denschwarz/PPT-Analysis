@@ -120,27 +120,22 @@ vector<vector<TString>> sample_channels = {
   {"4el", "4mu", "2mu2el"}
 };
 
-// Histogramm Index gibt an zu welchem Prozess eine Datei gehört
-// (data 0, Higgs 1, ZZ 2, DY 3)
-vector<int> sample_histindex = {
-  // data
-  0,
-  0,
-  0,
-  0,
-  // DY
-  3,
-  3,
-  3,
-  3,
-  // ZZ
-  2,
-  2,
-  2,
-  2,
-  2,
-  2,
-  // Higgs
-  1,
-  1
+// gibt an zu welchem Prozess eine Datei gehört
+vector<TString> sample_process = {
+  "data",
+  "data",
+  "data",
+  "data",
+  "DY",
+  "DY",
+  "DY",
+  "DY",
+  "ZZ",
+  "ZZ",
+  "ZZ",
+  "ZZ",
+  "ZZ",
+  "ZZ",
+  "higgs",
+  "higgs"
 };

@@ -42,19 +42,6 @@ int main(int argc, char* argv[]){
   h_EventCount_higgs->SetLineColor(kRed);
   h_EventCount_higgs->SetLineWidth(2);
 
-  h_Mass4l_data->SetMarkerStyle(20);
-  h_Mass4l_data->SetMarkerSize(0.8);
-  h_Mass4l_data->SetLineColor(1);
-  h_Mass4l_ZZ->SetFillColor(kAzure-9);
-  h_Mass4l_ZZ->SetLineColor(kBlack);
-  h_Mass4l_ZZ->SetLineWidth(2);
-  h_Mass4l_DY->SetFillColor(kGreen+2);
-  h_Mass4l_DY->SetLineColor(kBlack);
-  h_Mass4l_DY->SetLineWidth(2);
-  h_Mass4l_higgs->SetFillColor(kWhite);
-  h_Mass4l_higgs->SetLineColor(kRed);
-  h_Mass4l_higgs->SetLineWidth(2);
-
   h_muonPT_data->SetMarkerStyle(20);
   h_muonPT_data->SetMarkerSize(0.8);
   h_muonPT_data->SetLineColor(1);
@@ -87,11 +74,6 @@ int main(int argc, char* argv[]){
   stack_EventCount->Add(h_EventCount_ZZ);
   stack_EventCount->Add(h_EventCount_higgs);
 
-  THStack *stack_Mass4l = new THStack("","");
-  stack_Mass4l->Add(h_Mass4l_DY);
-  stack_Mass4l->Add(h_Mass4l_ZZ);
-  stack_Mass4l->Add(h_Mass4l_higgs);
-
   THStack *stack_muonPT = new THStack("","");
   stack_muonPT->Add(h_muonPT_DY);
   stack_muonPT->Add(h_muonPT_ZZ);
@@ -115,7 +97,7 @@ int main(int argc, char* argv[]){
   // Achsen
   stack_EventCount->GetXaxis()->SetRangeUser(0, 2);
   stack_EventCount->SetMaximum(600);
-  stack_EventCount->GetXaxis()->SetTitle("Mass 4l [GeV]");
+  stack_EventCount->GetXaxis()->SetTitle(" ");
   stack_EventCount->GetYaxis()->SetTitle("events");
   stack_EventCount->GetXaxis()->SetTitleSize(0.04);
   stack_EventCount->GetXaxis()->SetTitleOffset(0.9);
@@ -135,32 +117,6 @@ int main(int argc, char* argv[]){
   //speichern
   Canvas0->SaveAs("plots/EventCount.pdf");
 
-
-  TCanvas* Canvas = new TCanvas("mass","mass",600,600);
-  gPad->SetLeftMargin(0.15);
-  stack_Mass4l->Draw("HIST");
-  // Achsen
-  stack_Mass4l->GetXaxis()->SetRangeUser(70, 181);
-  stack_Mass4l->SetMaximum(31);
-  stack_Mass4l->GetXaxis()->SetTitle("Mass 4l [GeV]");
-  stack_Mass4l->GetYaxis()->SetTitle("events");
-  stack_Mass4l->GetXaxis()->SetTitleSize(0.04);
-  stack_Mass4l->GetXaxis()->SetTitleOffset(0.9);
-  stack_Mass4l->GetYaxis()->SetTitleSize(0.05);
-  stack_Mass4l->GetYaxis()->SetTitleOffset(1.1);
-  //Draw
-  stack_Mass4l->Draw("HIST");
-  h_Mass4l_data->Draw("E1 SAME");
-  // Legende
-  TLegend* leg_mass = new TLegend(0.60,0.60,0.87,0.85);
-  leg_mass->SetFillStyle(0);
-  leg_mass->AddEntry(h_elecPT_data,"data","pl");
-  leg_mass->AddEntry(h_elecPT_ZZ,"ZZ","f");
-  leg_mass->AddEntry(h_elecPT_DY,"Z/#gamma + X","f");
-  leg_mass->AddEntry(h_elecPT_higgs,"Higgs","f");
-  leg_mass->Draw();
-  //speichern
-  Canvas->SaveAs("plots/Mass4l.pdf");
 
   TCanvas* Canvas2 = new TCanvas("pt","pt",600,600);
   gPad->SetLeftMargin(0.15);

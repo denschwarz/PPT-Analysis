@@ -1,7 +1,7 @@
 #include "../include/Plotter.h"
 
 /*
-In diesem Programm lest ihr die Output Datei aus 'Analyse' ein.
+In diesem Programm lest ihr die Output Datei aus 'Analysis' ein.
 Darin befinden sich Histogramme getrannt nach den verschiedenen Prozessen.
 Hier fuegt ihr diese in einen Plot zusammen, waehlt Farben aus, beschriftet Achsen
 und fertigt eine Legende an.

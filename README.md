@@ -3,7 +3,7 @@ Framework for a search for Higgs decaying into 4 leptons.
 
 1) Workflow
 
-To run the analysis, first run "Analyse", then run "Plotter".
+To run the analysis, first run "Analysis", then run "Plotter".
 Analyse will create a root file containing histograms.
 Plotter can read these histograms and create plots in the plot folder
 
@@ -25,7 +25,3 @@ Every event has a vector of muons and a vector of electrons.
 With GetMuons or GetElectrons you get a vector with the size of N_events that contains a vector of muons/electrons for every event.
 The file Samples.h is the interface to use the rootfiled.
 It defines a list of file names, you also find the correct weight for every process, the relevant channels and an hist index which defines what process a file belongs to.
-
-# to do:
-- construct more sample histograms
-- better way to implement plotter?

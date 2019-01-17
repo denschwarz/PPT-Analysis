@@ -20,8 +20,14 @@ int main(int argc, char* argv[]){
   // Dabei ist für jede Größe ein Vektor definiert.
   // Dieser Vektor enthält je ein Histogramm für jeden Prozess (Daten, Higgs, ZZ, DY)
   vector<TH1F*> hist_EventCount = CreateHistograms("EventCount",1, 0, 2);
+  vector<TH1F*> hist_muonNUMBER = CreateHistograms("muonNUMBER", 6, -0.5, 5.5);
   vector<TH1F*> hist_muonPT = CreateHistograms("muonPT", 20, 0, 300);
+  vector<TH1F*> hist_muonPHI = CreateHistograms("muonPHI", 20, -4, 4);
+  vector<TH1F*> hist_muonETA = CreateHistograms("muonETA", 20, -3, 3);
+  vector<TH1F*> hist_muonCHARGE = CreateHistograms("muonCHARGE", 5, -2.5, 2.5);
+  vector<TH1F*> hist_elecNUMBER = CreateHistograms("elecNUMBER", 6, -0.5, 5.5);
   vector<TH1F*> hist_elecPT = CreateHistograms("elecPT", 20, 0, 300);
+
   // -----------------------------------------------------------------------------
   // Hier findet die eigentliche Analyse statt.
   // Dabei wird jede Root-Datei geöffnet und ausgelesen.
@@ -36,8 +42,8 @@ int main(int argc, char* argv[]){
       // Hier werden die Dateien ausgelesen und Vektoren von Myonen und Elektronen erstellt
       ReadLeptons reader(sample_names[isample], channel);
       int Nevents = reader.GetEventCount();
-      vector< vector<Particle> > Muons = reader.GetMuons();
-      vector< vector<Particle> > Elecs = reader.GetElectrons();
+      vector< vector<Particle> > allMuons = reader.GetMuons();
+      vector< vector<Particle> > allElecs = reader.GetElectrons();
       ////
 
       // Gewicht, Histindex auslesen
@@ -48,17 +54,36 @@ int main(int argc, char* argv[]){
       // In der eigentlichen Analyse führen wir für jedes Ereignis aus.
       // Da wir immer das gleiche für jedes Ereignis tun, benutzen wir hier eine Schleife.
       for(int ievent=0; ievent<Nevents; ievent++){
-        FillHistogram(hist_EventCount, 1, weight, process);     // dieses Hist zählt Ereignisse
+        vector<Particle> Muons = allMuons[ievent]; // Myonen für dieses Ereignis
+        vector<Particle> Elecs = allElecs[ievent]; // Elektronen für dieses Ereignis
+
+        // dieses Hist zählt Ereignisse
+        FillHistogram(hist_EventCount, 1, weight, process);
+
+        // Anzahl an Elektronen bzw. Myonen
+        int numberMUONS = Muons.size();
+        int numberELECS = Elecs.size();
+        FillHistogram(hist_muonNUMBER, numberMUONS, weight, process);
+        FillHistogram(hist_elecNUMBER, numberELECS, weight, process);
+
         // Schleife über alle Myonen in einem Ereignis
-        for(int i=0; i<Muons[ievent].size(); i++){
-          double pt = Muons[ievent][i].Pt();                    // pT von Myon auslesen
-          FillHistogram(hist_muonPT, pt, weight, process);      // in Histogramm füllen
+        for(int i=0; i<Muons.size(); i++){
+          // Variablen von Myon auslesen
+          double pt = Muons[i].Pt();
+          double eta = Muons[i].Eta();
+          double phi = Muons[i].Phi();
+          int charge = Muons[i].Charge();
+          // in Histogramme füllen
+          FillHistogram(hist_muonPT, pt, weight, process);
+          FillHistogram(hist_muonETA, eta, weight, process);
+          FillHistogram(hist_muonPHI, phi, weight, process);
+          FillHistogram(hist_muonCHARGE, charge, weight, process);
         }
         ////
 
         // Schleife über alle Electronen in einem Ereignis
-        for(int i=0; i<Elecs[ievent].size(); i++){
-          double pt = Elecs[ievent][i].Pt();
+        for(int i=0; i<Elecs.size(); i++){
+          double pt = Elecs[i].Pt();
           FillHistogram(hist_elecPT, pt, weight, process);
         }
         ////

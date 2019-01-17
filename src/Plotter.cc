@@ -15,13 +15,22 @@ int main(int argc, char* argv[]){
   // Histogramme aus Datei auslesen
   // und ein einzelnes Histogramm fuer jedes Signal/Untergrund erstellen
   vector<TH1F*> h_EventCount = ReadHistograms("EventCount");
+  vector<TH1F*> h_muonNUMBER = ReadHistograms("muonNUMBER");
   vector<TH1F*> h_muonPT = ReadHistograms("muonPT");
+  vector<TH1F*> h_muonPHI = ReadHistograms("muonPHI");
+  vector<TH1F*> h_muonETA = ReadHistograms("muonETA");
+  vector<TH1F*> h_muonCHARGE = ReadHistograms("muonCHARGE");
+  vector<TH1F*> h_elecNUMBER = ReadHistograms("elecNUMBER");
   vector<TH1F*> h_elecPT = ReadHistograms("elecPT");
-
   // Hier wird der eigentliche Plot erstellt
-  // Parameter: Hist-Vektor, Name der Datei, X-Achsen Titel, x_min, x_max, y_min
+  // Parameter: Hist-Vektor, Name der Datei, X-Achsen Titel, x_min, x_max, y_max
   CreatePlot(h_EventCount, "EventCount", " ", 0, 2, 600);
+  CreatePlot(h_muonNUMBER, "MuonNUMBER", "number of muons", -0.5, 5.5, 300);
   CreatePlot(h_muonPT, "MuonPT", "Muon p_{T}", 0, 200, 200);
+  CreatePlot(h_muonETA, "MuonETA", "Muon #eta", -3, 3, 200);
+  CreatePlot(h_muonPHI, "MuonPHI", "Muon #Phi", -4, 4, 200);
+  CreatePlot(h_muonCHARGE, "MuonCHARGE", "Muon charge", -2.5, 2.5, 600);
+  CreatePlot(h_elecNUMBER, "ElectronNUMBER", "number of electrons", -0.5, 5.5, 300);
   CreatePlot(h_elecPT, "ElectronPT", "Electron p_{T}", 0, 200, 200);
 
   return 0;

@@ -11,6 +11,7 @@ public:
   Double_t Mass(){return v4.M();};  // gibt Masse aus
   Double_t Pt(){return v4.Pt();};   // gibt pT aus
   Double_t Eta(){return v4.Eta();}; // gibt Eta aus
+  Double_t Phi(){return v4.Phi();}; // gibt Phi aus
 
 private:
   TLorentzVector v4;

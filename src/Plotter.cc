@@ -22,6 +22,9 @@ int main(int argc, char* argv[]){
   vector<TH1F*> h_muonCHARGE = ReadHistograms("muonCHARGE");
   vector<TH1F*> h_elecNUMBER = ReadHistograms("elecNUMBER");
   vector<TH1F*> h_elecPT = ReadHistograms("elecPT");
+  vector<TH1F*> h_Z1 = ReadHistograms("Z1");
+  vector<TH1F*> h_Z2 = ReadHistograms("Z2");
+
   // Hier wird der eigentliche Plot erstellt
   // Parameter: Hist-Vektor, Name der Datei, X-Achsen Titel, x_min, x_max, y_max
   CreatePlot(h_EventCount, "EventCount", " ", 0, 2, 600);
@@ -32,6 +35,8 @@ int main(int argc, char* argv[]){
   CreatePlot(h_muonCHARGE, "MuonCHARGE", "Muon charge", -2.5, 2.5, 600);
   CreatePlot(h_elecNUMBER, "ElectronNUMBER", "number of electrons", -0.5, 5.5, 300);
   CreatePlot(h_elecPT, "ElectronPT", "Electron p_{T}", 0, 200, 200);
+  CreatePlot(h_Z1, "Z1", "Z mass", 0, 300, 100);
+  CreatePlot(h_Z2, "Z2", "Z mass", 0, 300, 100);
 
   return 0;
 }

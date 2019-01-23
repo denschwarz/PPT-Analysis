@@ -4,6 +4,9 @@
 
 class Particle{
 public:
+  Particle();
+  Particle(TLorentzVector v4_);
+  Particle Combine(Particle other_particle);
   void SetVector(TLorentzVector);
   void SetCharge(Int_t);
   TLorentzVector V4(){return v4;};  // gibt 4er-Vektor aus

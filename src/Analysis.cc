@@ -27,6 +27,8 @@ int main(int argc, char* argv[]){
   vector<TH1F*> hist_muonCHARGE = CreateHistograms("muonCHARGE", 5, -2.5, 2.5);
   vector<TH1F*> hist_elecNUMBER = CreateHistograms("elecNUMBER", 6, -0.5, 5.5);
   vector<TH1F*> hist_elecPT = CreateHistograms("elecPT", 20, 0, 300);
+  vector<TH1F*> hist_Z1 = CreateHistograms("Z1", 20, 0, 300);
+  vector<TH1F*> hist_Z2 = CreateHistograms("Z2", 20, 0, 300);
 
   // -----------------------------------------------------------------------------
   // Hier findet die eigentliche Analyse statt.
@@ -37,6 +39,7 @@ int main(int argc, char* argv[]){
   int Nsamples = sample_names.size(); // Anzahl an Root-Dateien
   for(int isample=0; isample<Nsamples; isample++){ // Schleife über alle Root-Dateien
     for(auto channel: sample_channels[isample]){   // Schleife über alle möglichen Kanäle einer Datei
+      // mögliche Kanäle: "4el", "4mu", "2mu2el"
       cout << "Analising " << sample_names[isample] << "..." << endl;
 
       // Hier werden die Dateien ausgelesen und Vektoren von Myonen und Elektronen erstellt
@@ -51,6 +54,7 @@ int main(int argc, char* argv[]){
       double weight = sample_weights[isample];
       ////
 
+
       // In der eigentlichen Analyse führen wir für jedes Ereignis aus.
       // Da wir immer das gleiche für jedes Ereignis tun, benutzen wir hier eine Schleife.
       for(int ievent=0; ievent<Nevents; ievent++){
@@ -59,6 +63,14 @@ int main(int argc, char* argv[]){
 
         // dieses Hist zählt Ereignisse
         FillHistogram(hist_EventCount, 1, weight, process);
+
+        // So wird z.B. ein Z rekostruiert:
+        if(channel == "2mu2el"){
+          Particle Z1 = Muons[0].Combine(Muons[1]);
+          Particle Z2 = Elecs[0].Combine(Elecs[1]);
+          FillHistogram(hist_Z1, Z1.Mass(), weight, process);
+          FillHistogram(hist_Z2, Z2.Mass(), weight, process);
+        }
 
         // Anzahl an Elektronen bzw. Myonen
         int numberMUONS = Muons.size();

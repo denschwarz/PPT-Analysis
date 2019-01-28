@@ -77,14 +77,14 @@ ReadLeptons::ReadLeptons(TString name, TString channel){
       El2.SetPxPyPzE(px_el2, py_el2, pz_el2, E_el2);
       El3.SetPxPyPzE(px_el3, py_el3, pz_el3, E_el3);
       El4.SetPxPyPzE(px_el4, py_el4, pz_el4, E_el4);
-      Particle Elec1(El1);
-      Particle Elec2(El2);
-      Particle Elec3(El3);
-      Particle Elec4(El4);
-      Elec1.SetCharge(charge_el1);
-      Elec2.SetCharge(charge_el2);
-      Elec3.SetCharge(charge_el3);
-      Elec4.SetCharge(charge_el4);
+      Particle Elec1(El3); // these are mixed so that e1,e2 does not give the Z
+      Particle Elec2(El1); //
+      Particle Elec3(El2); //
+      Particle Elec4(El4); //
+      Elec1.SetCharge(charge_el3); //
+      Elec2.SetCharge(charge_el1); //
+      Elec3.SetCharge(charge_el2); //
+      Elec4.SetCharge(charge_el4); //
       Muons.push_back( { } );
       Electrons.push_back( {Elec1, Elec2, Elec3, Elec4} );
     }
@@ -120,14 +120,14 @@ ReadLeptons::ReadLeptons(TString name, TString channel){
       Mu2.SetPxPyPzE(px_mu2, py_mu2, pz_mu2, E_mu2);
       Mu3.SetPxPyPzE(px_mu3, py_mu3, pz_mu3, E_mu3);
       Mu4.SetPxPyPzE(px_mu4, py_mu4, pz_mu4, E_mu4);
-      Particle Muon1(Mu1);
-      Particle Muon2(Mu2);
-      Particle Muon3(Mu3);
-      Particle Muon4(Mu4);
-      Muon1.SetCharge(charge_mu1);
-      Muon2.SetCharge(charge_mu2);
-      Muon3.SetCharge(charge_mu3);
-      Muon4.SetCharge(charge_mu4);
+      Particle Muon1(Mu3); // these are mixed so that e1,e2 does not give the Z
+      Particle Muon2(Mu1); //
+      Particle Muon3(Mu4); //
+      Particle Muon4(Mu2); //
+      Muon1.SetCharge(charge_mu3); //
+      Muon2.SetCharge(charge_mu1); //
+      Muon3.SetCharge(charge_mu4); //
+      Muon4.SetCharge(charge_mu2); //
       Muons.push_back( {Muon1, Muon2, Muon3, Muon4 } );
       Electrons.push_back( { } );
     }

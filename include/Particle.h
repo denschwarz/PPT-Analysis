@@ -4,7 +4,7 @@
 
 class Particle{
 public:
-  Particle();
+  Particle(): v4(TLorentzVector()), charge(0){};
   Particle(TLorentzVector v4_);
   Particle Combine(Particle other_particle);
   void SetVector(TLorentzVector);

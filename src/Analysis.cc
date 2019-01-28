@@ -66,10 +66,18 @@ int main(int argc, char* argv[]){
 
         // So wird z.B. ein Z rekostruiert:
         if(channel == "2mu2el"){
-          Particle Z1 = Muons[0].Combine(Muons[1]);
-          Particle Z2 = Elecs[0].Combine(Elecs[1]);
-          FillHistogram(hist_Z1, Z1.Mass(), weight, process);
-          FillHistogram(hist_Z2, Z2.Mass(), weight, process);
+          Particle Z1;
+          Z1 = Muons[0].Combine(Muons[1]);
+          Particle Z2;
+          Z2 = Elecs[0].Combine(Elecs[1]);
+          if( fabs(Z1.Mass() - 90) < fabs(Z2.Mass() - 90) ){
+            FillHistogram(hist_Z1, Z1.Mass(), weight, process);
+            FillHistogram(hist_Z2, Z2.Mass(), weight, process);
+          }
+          else{
+            FillHistogram(hist_Z1, Z2.Mass(), weight, process);
+            FillHistogram(hist_Z2, Z1.Mass(), weight, process);
+          }
         }
 
         // Anzahl an Elektronen bzw. Myonen

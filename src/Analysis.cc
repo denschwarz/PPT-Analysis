@@ -10,12 +10,12 @@ Der Output wird gesammelt in einer weiteren Root Datei abgespeichert.
 
 int main(int argc, char* argv[]){
 
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   // Hier wird der Name der Output Datei vergeben
   TString outputName = "Histograms.root";
   TFile* outputFile=new TFile(outputName,"recreate");
 
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   // Hier werden Histogramme definiert.
   // Dabei ist für jede Größe ein Vektor definiert.
   // Dieser Vektor enthält je ein Histogramm für jeden Prozess (Daten, Higgs, ZZ, DY)
@@ -25,20 +25,19 @@ int main(int argc, char* argv[]){
   vector<TH1F*> hist_muonPHI = CreateHistograms("muonPHI", 20, -4, 4);
   vector<TH1F*> hist_muonETA = CreateHistograms("muonETA", 20, -3, 3);
   vector<TH1F*> hist_muonCHARGE = CreateHistograms("muonCHARGE", 5, -2.5, 2.5);
-  vector<TH1F*> hist_elecNUMBER = CreateHistograms("elecNUMBER", 6, -0.5, 5.5);
   vector<TH1F*> hist_elecPT = CreateHistograms("elecPT", 20, 0, 300);
   vector<TH1F*> hist_Zmass = CreateHistograms("Zmass", 20, 0, 150);
 
-  // -----------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   // Hier findet die eigentliche Analyse statt.
   // Dabei wird jede Root-Datei geöffnet und ausgelesen.
   // Daraus erhält man je eine Liste an Elektronen und Myonen.
   // Diese werden dann für die Analyse ausgewertet
 
-  int Nsamples = sample_names.size(); // Anzahl an Root-Dateien
+  int Nsamples = sample_names.size();              // Anzahl an Root-Dateien
   for(int isample=0; isample<Nsamples; isample++){ // Schleife über alle Root-Dateien
     for(auto channel: sample_channels[isample]){   // Schleife über alle möglichen Kanäle einer Datei
-      // mögliche Kanäle: "4el", "4mu", "2mu2el"
+                                                   // mögliche Kanäle: "4el", "4mu", "2mu2el"
       cout << "Analising " << sample_names[isample] << "..." << endl;
 
       // Hier werden die Dateien ausgelesen und Vektoren von Myonen und Elektronen erstellt
@@ -54,16 +53,29 @@ int main(int argc, char* argv[]){
       ////
 
 
-      // In der eigentlichen Analyse führen wir für jedes Ereignis aus.
-      // Da wir immer das gleiche für jedes Ereignis tun, benutzen wir hier eine Schleife.
+      /*
+      In der eigentlichen Analyse führen wir für jedes Ereignis aus.
+      Da wir immer das gleiche für jedes Ereignis tun, benutzen wir hier eine Schleife.
+      */
       for(int ievent=0; ievent<Nevents; ievent++){
-        vector<Particle> Muons = allMuons[ievent]; // Myonen für dieses Ereignis
-        vector<Particle> Elecs = allElecs[ievent]; // Elektronen für dieses Ereignis
+        /*
+        Für jedes Ereignis wird zunächst eine Liste Myonen und eine Liste
+        Elektronen angelegt. Diese können im weiteren Verlauf analysiert werden.
+        */
+        vector<Particle> Muons = allMuons[ievent];
+        vector<Particle> Elecs = allElecs[ievent];
 
-        // dieses Hist zählt Ereignisse
+        /*
+        In dieses Histogramm wird für ein Ereignis immer für der selber Wert (1)
+        eingetragen. Damit enthält es am Ende exakt die Anzahl an Ereignissen.
+        */
         FillHistogram(hist_EventCount, 1, weight, process);
 
-        // So wird z.B. ein Z rekostruiert:
+        /*
+        Hier wird ein Z aus Myonen und ein Z aus Elektronen rekonstruiert
+        In dem 2mu2el Kanal ist hier die Zuordnung eindeutig, weil ein Z
+        immer in 2 Myonen oder 2 Elektronen zerfällt.
+        */
         if(channel == "2mu2el"){
           Particle Z1 = Combine(Muons[0], Muons[1]);
           Particle Z2 = Combine(Elecs[0], Elecs[1]);
@@ -73,11 +85,9 @@ int main(int argc, char* argv[]){
 
         // Anzahl an Elektronen bzw. Myonen
         int numberMUONS = Muons.size();
-        int numberELECS = Elecs.size();
         FillHistogram(hist_muonNUMBER, numberMUONS, weight, process);
-        FillHistogram(hist_elecNUMBER, numberELECS, weight, process);
 
-        // Schleife über alle Myonen in einem Ereignis
+        // Schleife über alle Myonen in einem Ereignis -------------------------
         for(int i=0; i<Muons.size(); i++){
           // Variablen von Myon auslesen
           double pt = Muons[i].Pt();
@@ -90,25 +100,28 @@ int main(int argc, char* argv[]){
           FillHistogram(hist_muonPHI, phi, weight, process);
           FillHistogram(hist_muonCHARGE, charge, weight, process);
         }
-        ////
+        // ---------------------------------------------------------------------
 
-        // Schleife über alle Electronen in einem Ereignis
+
+        // Schleife über alle Elektronen in einem Ereignis ---------------------
         for(int i=0; i<Elecs.size(); i++){
+          // Variablen von Elektronen auslesen
           double pt = Elecs[i].Pt();
+          // in Histogramme füllen
           FillHistogram(hist_elecPT, pt, weight, process);
         }
-        ////
+        // ---------------------------------------------------------------------
       }
     }
   }
-  // Abspeichern in einer neuen Datei.
+  // Am Ende: Abspeichern der Histogramme in der Output Datei
   outputFile->Write();
   return 0;
 }
 
+
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-// Hier werden Histogramme kreiert
+// Diese Funktion wird aufgerufen um Histogramme zu erstellen ------------------
 vector<TH1F*> CreateHistograms(TString histname, int nbins, double min, double max){
   vector<TH1F*> hists;
   vector<TString> processes = {"data", "higgs", "ZZ", "DY"};
@@ -118,8 +131,7 @@ vector<TH1F*> CreateHistograms(TString histname, int nbins, double min, double m
   return hists;
 }
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-// mit dieser Funtion werden Histogramme gefüllt
+// Diese Funktion wird aufgerufen um Histogramme zu füllen ---------------------
 void FillHistogram(vector<TH1F*> hists, double value, double weight, TString process){
   int index;
   if(process == "data") index = 0;

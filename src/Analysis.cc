@@ -27,8 +27,7 @@ int main(int argc, char* argv[]){
   vector<TH1F*> hist_muonCHARGE = CreateHistograms("muonCHARGE", 5, -2.5, 2.5);
   vector<TH1F*> hist_elecNUMBER = CreateHistograms("elecNUMBER", 6, -0.5, 5.5);
   vector<TH1F*> hist_elecPT = CreateHistograms("elecPT", 20, 0, 300);
-  vector<TH1F*> hist_Z1 = CreateHistograms("Z1", 20, 0, 300);
-  vector<TH1F*> hist_Z2 = CreateHistograms("Z2", 20, 0, 300);
+  vector<TH1F*> hist_Zmass = CreateHistograms("Zmass", 20, 0, 150);
 
   // -----------------------------------------------------------------------------
   // Hier findet die eigentliche Analyse statt.
@@ -66,16 +65,10 @@ int main(int argc, char* argv[]){
 
         // So wird z.B. ein Z rekostruiert:
         if(channel == "2mu2el"){
-          Particle Z1 = Muons[0] + Muons[1];
-          Particle Z2 = Elecs[0] + Elecs[1];;
-          if( fabs(Z1.Mass() - 90) < fabs(Z2.Mass() - 90) ){
-            FillHistogram(hist_Z1, Z1.Mass(), weight, process);
-            FillHistogram(hist_Z2, Z2.Mass(), weight, process);
-          }
-          else{
-            FillHistogram(hist_Z1, Z2.Mass(), weight, process);
-            FillHistogram(hist_Z2, Z1.Mass(), weight, process);
-          }
+          Particle Z1 = Combine(Muons[0], Muons[1]);
+          Particle Z2 = Combine(Elecs[0], Elecs[1]);
+          FillHistogram(hist_Zmass, Z1.Mass(), weight, process);
+          FillHistogram(hist_Zmass, Z2.Mass(), weight, process);
         }
 
         // Anzahl an Elektronen bzw. Myonen

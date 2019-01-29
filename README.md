@@ -23,3 +23,12 @@ ReadLeptons takes the rootfiles as input and reads the trees.
 With GetMuons or GetElectrons you get a vector with the size of N_events that contains a vector of muons/electrons for every event (vector containing vectors).
 The file Samples.h is the interface to use the rootfiles.
 It defines a list of file names, you also find the correct weight for every process, the relevant channels and an hist index which defines what process a file belongs to.
+
+4) Possible Tasks
+
+- How many events do you analyse?
+- How many events do you see in each channel?
+- What is the highest pT of any Lepton?
+- Do you see more +1 or -1 charged leptons?
+- Reconstruct all Z bosons and plot the mass
+- Reconstruct Higgs Boson and plot the mass

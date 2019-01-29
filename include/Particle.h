@@ -16,6 +16,16 @@ public:
   Double_t Eta(){return v4.Eta();}; // gibt Eta aus
   Double_t Phi(){return v4.Phi();}; // gibt Phi aus
 
+  // Overload + operator to add two Particle objects.
+  Particle operator+(const Particle& other) {
+    Particle p;
+    p.v4 = this->v4 + other.v4;
+    p.charge = this->charge + other.charge;
+    return p;
+  }
+
+
+
 private:
   TLorentzVector v4;
   Int_t charge;

@@ -20,7 +20,6 @@ int main(int argc, char* argv[]){
   vector<TH1F*> h_muonPHI = ReadHistograms("muonPHI");
   vector<TH1F*> h_muonETA = ReadHistograms("muonETA");
   vector<TH1F*> h_muonCHARGE = ReadHistograms("muonCHARGE");
-  vector<TH1F*> h_elecNUMBER = ReadHistograms("elecNUMBER");
   vector<TH1F*> h_elecPT = ReadHistograms("elecPT");
   vector<TH1F*> h_Zmass = ReadHistograms("Zmass");
 
@@ -32,7 +31,6 @@ int main(int argc, char* argv[]){
   CreatePlot(h_muonETA, "MuonETA", "Muon #eta", -3, 3, 200);
   CreatePlot(h_muonPHI, "MuonPHI", "Muon #Phi", -4, 4, 200);
   CreatePlot(h_muonCHARGE, "MuonCHARGE", "Muon charge", -2.5, 2.5, 600);
-  CreatePlot(h_elecNUMBER, "ElectronNUMBER", "number of electrons", -0.5, 5.5, 300);
   CreatePlot(h_elecPT, "ElectronPT", "Electron p_{T}", 0, 200, 200);
   CreatePlot(h_Zmass, "Zmass", "Z mass", 0, 150, 200);
 
@@ -41,8 +39,7 @@ int main(int argc, char* argv[]){
 
 
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-// Funktion um Histogramme aus Root Datei zu lesen
+// Funktion um Histogramme aus Root Datei zu lesen -----------------------------
 vector<TH1F*> ReadHistograms(TString histname){
   vector<TH1F*> hists;
   vector<TString> processes = {"data", "higgs", "ZZ", "DY"};
@@ -53,8 +50,7 @@ vector<TH1F*> ReadHistograms(TString histname){
 }
 
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-// Hier passiert das eigentliche plotten
+// Hier passiert das eigentliche plotten ---------------------------------------
 void CreatePlot(vector<TH1F*> hists, TString filename, TString xtitle, double xmin, double xmax, double ymax){
   gStyle->SetOptStat(kFALSE);            // allgemeine Style Option
   gStyle->SetPadTickY(1);                //

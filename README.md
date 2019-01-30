@@ -6,7 +6,7 @@ Framework for a search for Higgs decaying into 4 leptons.
 - Git clone somewhere
 - Compile with 'make'
 - Run Analysis with './Analysis'
-- Run Plotter with '.Plotter'
+- Run Plotter with './Plotter'
 
 2) Workflow
 

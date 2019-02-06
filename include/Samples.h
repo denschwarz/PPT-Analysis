@@ -25,8 +25,10 @@ Double_t xsecHZZ11 = 0.0057;
 
 // Zusatzlicher Faktor fuer ZZ und DY
 // ( im Ramen der vollen Analyse gemessen)
-Double_t sfZZ = 1.3;
-Double_t sfDY = 1.12;
+Double_t sfZZ_4mu = 1.625;
+Double_t sfZZ_4el = 1.17;
+Double_t sfZZ_2mu2el = 1.105;
+Double_t sfDY = 1.2;
 
 // Anzahl an simulierten Ereignissen
 Int_t nevtZZ4mu12 = 1499064;
@@ -45,12 +47,12 @@ Int_t nevtDY1011 = 39909640;
 // Gewichte fuer die MC Simulationen errechnen
 double weight_Higgs_12   = (lumi12 * xsecHZZ12) / nevtHZZ12;
 double weight_Higgs_11   = (lumi11 * xsecHZZ11) / nevtHZZ11;
-double weight_ZZ4mu_12   = (lumi12 * xsecZZ412 * sfZZ) / nevtZZ4mu12;
-double weight_ZZ4e_12    = (lumi12 * xsecZZ412 * sfZZ) / nevtZZ4e12;
-double weight_ZZ2mu2e_12 = (lumi12 * xsecZZ2mu2e12 * sfZZ) / nevtZZ2mu2e12;
-double weight_ZZ4mu_11   = (lumi11 * xsecZZ411 * sfZZ) / nevtZZ4mu11;
-double weight_ZZ4e_11    = (lumi11 * xsecZZ411 * sfZZ) / nevtZZ4e11;
-double weight_ZZ2mu2e_11 = (lumi11 * xsecZZ2mu2e11 * sfZZ) / nevtZZ2mu2e11;
+double weight_ZZ4mu_12   = (lumi12 * xsecZZ412 * sfZZ_4mu) / nevtZZ4mu12;
+double weight_ZZ4e_12    = (lumi12 * xsecZZ412 * sfZZ_4el) / nevtZZ4e12;
+double weight_ZZ2mu2e_12 = (lumi12 * xsecZZ2mu2e12 * sfZZ_2mu2el) / nevtZZ2mu2e12;
+double weight_ZZ4mu_11   = (lumi11 * xsecZZ411 * sfZZ_4mu) / nevtZZ4mu11;
+double weight_ZZ4e_11    = (lumi11 * xsecZZ411 * sfZZ_4el) / nevtZZ4e11;
+double weight_ZZ2mu2e_11 = (lumi11 * xsecZZ2mu2e11 * sfZZ_2mu2el) / nevtZZ2mu2e11;
 double weight_DY10_12   = (lumi12 * xsecDY1012 * sfDY) / nevtDY1012;
 double weight_DY50_12   = (lumi12 * xsecDY5012 * sfDY) / nevtDY5012;
 double weight_DY10_11   = (lumi11 * xsecDY1011 * sfDY) / nevtDY1011;

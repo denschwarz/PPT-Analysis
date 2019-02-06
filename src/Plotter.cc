@@ -22,6 +22,7 @@ int main(int argc, char* argv[]){
   vector<TH1F*> h_muonCHARGE = ReadHistograms("muonCHARGE");
   vector<TH1F*> h_elecPT = ReadHistograms("elecPT");
   vector<TH1F*> h_Zmass = ReadHistograms("Zmass");
+  vector<TH1F*> h_Hmass = ReadHistograms("HIGGSmass");
 
   // Hier wird der eigentliche Plot erstellt
   // Parameter: Hist-Vektor, Name der Datei, X-Achsen Titel, x_min, x_max, y_max
@@ -32,7 +33,8 @@ int main(int argc, char* argv[]){
   CreatePlot(h_muonPHI, "MuonPHI", "Muon #Phi", -4, 4, 200);
   CreatePlot(h_muonCHARGE, "MuonCHARGE", "Muon charge", -2.5, 2.5, 600);
   CreatePlot(h_elecPT, "ElectronPT", "Electron p_{T}", 0, 200, 200);
-  CreatePlot(h_Zmass, "Zmass", "Z mass", 0, 150, 200);
+  CreatePlot(h_Zmass, "Zmass", "Z mass", 0, 150, 360);
+  CreatePlot(h_Hmass, "HIGGSmass", "4l mass", 50, 220, 60);
 
   return 0;
 }
@@ -55,6 +57,7 @@ void CreatePlot(vector<TH1F*> hists, TString filename, TString xtitle, double xm
   gStyle->SetOptStat(kFALSE);            // allgemeine Style Option
   gStyle->SetPadTickY(1);                //
   gStyle->SetPadTickX(1);                //
+  gStyle->SetLegendBorderSize(0);        //
   hists[0]->SetMarkerStyle(20);          // Marker Style für Daten
   hists[0]->SetMarkerSize(0.8);          // Größe des Markers
   hists[0]->SetLineColor(1);             // Farbe des Markers

@@ -39,6 +39,7 @@ int main(int argc, char* argv[]){
   int events_4mu = 0;
   int events_4el = 0;
   double ptmax = 0;
+  bool iselec = false;
 
   int Nsamples = sample_names.size();              // Anzahl an Root-Dateien
   for(int isample=0; isample<Nsamples; isample++){ // Schleife über alle Root-Dateien
@@ -221,7 +222,9 @@ int main(int argc, char* argv[]){
           FillHistogram(hist_muonCHARGE, charge, weight, process);
 
           // ptmax finden
-          if(pt > ptmax) ptmax = pt;
+          if(process == "data"){
+            if(pt > ptmax) ptmax = pt;
+          }
         }
         // ---------------------------------------------------------------------
 
@@ -232,7 +235,10 @@ int main(int argc, char* argv[]){
           double pt = Elecs[i].Pt();
           // in Histogramme füllen
           FillHistogram(hist_elecPT, pt, weight, process);
-          if(pt > ptmax) ptmax = pt;
+          // ptmax finden
+          if(process == "data"){
+            if(pt > ptmax) ptmax = pt;
+          }
         }
         // ---------------------------------------------------------------------
       }
@@ -242,7 +248,7 @@ int main(int argc, char* argv[]){
   cout << "Events in 2mu2el: " << events_2mu2el << endl;
   cout << "Events in 4mu: " << events_4mu << endl;
   cout << "Events in 4el: " << events_4el << endl;
-  cout << "max pT = " << ptmax << endl;
+  cout << "max pT in data: " << ptmax << endl;
 
   // Am Ende: Abspeichern der Histogramme in der Output Datei
   outputFile->Write();

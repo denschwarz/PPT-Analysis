@@ -33,9 +33,9 @@ It defines a list of file names, you also find the correct weight for every proc
 
 5) Possible Tasks
 
-- How many data events do you analyse?
-- How many data events do you see in each channel?
-- What is the highest pT of any Lepton in data?
-- Do you see more +1 or -1 charged leptons? What do you expect?
+- How many data events do you analyse?                           (solution: 278)
+- How many data events do you see in each channel?               (solution: 117 in 2mu2el, 113 in 4mu, 48 in 4el)
+- What is the highest pT of any Lepton in data?                  (solution: 243.6 GeV)
+- Do you see more +1 or -1 charged leptons? What do you expect? 
 - Reconstruct all Z bosons and plot the mass
 - Reconstruct Higgs Boson and plot the mass

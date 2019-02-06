@@ -25,7 +25,11 @@ int main(int argc, char* argv[]){
   vector<TH1F*> hist_muonPHI = CreateHistograms("muonPHI", 20, -4, 4);
   vector<TH1F*> hist_muonETA = CreateHistograms("muonETA", 20, -3, 3);
   vector<TH1F*> hist_muonCHARGE = CreateHistograms("muonCHARGE", 5, -2.5, 2.5);
+  vector<TH1F*> hist_elecNUMBER = CreateHistograms("elecNUMBER", 6, -0.5, 5.5);
   vector<TH1F*> hist_elecPT = CreateHistograms("elecPT", 20, 0, 300);
+  vector<TH1F*> hist_elecPHI = CreateHistograms("elecPHI", 20, -4, 4);
+  vector<TH1F*> hist_elecETA = CreateHistograms("elecETA", 20, -3, 3);
+  vector<TH1F*> hist_elecCHARGE = CreateHistograms("elecCHARGE", 5, -2.5, 2.5);
   vector<TH1F*> hist_Zmass = CreateHistograms("Zmass", 20, 0, 150);
   vector<TH1F*> hist_HIGGSmass = CreateHistograms("HIGGSmass", 30, 0, 220);
 
@@ -207,6 +211,8 @@ int main(int argc, char* argv[]){
         // Anzahl an Elektronen bzw. Myonen
         int numberMUONS = Muons.size();
         FillHistogram(hist_muonNUMBER, numberMUONS, weight, process);
+        int numberELECS = Elecs.size();
+        FillHistogram(hist_elecNUMBER, numberELECS, weight, process);
 
         // Schleife über alle Myonen in einem Ereignis -------------------------
         for(int i=0; i<Muons.size(); i++){
@@ -231,10 +237,16 @@ int main(int argc, char* argv[]){
 
         // Schleife über alle Elektronen in einem Ereignis ---------------------
         for(int i=0; i<Elecs.size(); i++){
-          // Variablen von Elektronen auslesen
+          // Variablen von Myon auslesen
           double pt = Elecs[i].Pt();
+          double eta = Elecs[i].Eta();
+          double phi = Elecs[i].Phi();
+          int charge = Elecs[i].Charge();
           // in Histogramme füllen
           FillHistogram(hist_elecPT, pt, weight, process);
+          FillHistogram(hist_elecETA, eta, weight, process);
+          FillHistogram(hist_elecPHI, phi, weight, process);
+          FillHistogram(hist_elecCHARGE, charge, weight, process);
           // ptmax finden
           if(process == "data"){
             if(pt > ptmax) ptmax = pt;

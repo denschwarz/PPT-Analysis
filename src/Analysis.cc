@@ -34,6 +34,11 @@ int main(int argc, char* argv[]){
   // Dabei wird jede Root-Datei geöffnet und ausgelesen.
   // Daraus erhält man je eine Liste an Elektronen und Myonen.
   // Diese werden dann für die Analyse ausgewertet
+  int events_tot = 0;
+  int events_2mu2el = 0;
+  int events_4mu = 0;
+  int events_4el = 0;
+  double ptmax = 0;
 
   int Nsamples = sample_names.size();              // Anzahl an Root-Dateien
   for(int isample=0; isample<Nsamples; isample++){ // Schleife über alle Root-Dateien
@@ -53,6 +58,14 @@ int main(int argc, char* argv[]){
       double weight = sample_weights[isample];
       ////
 
+      // events in data zählen
+      if(process == "data"){
+        events_tot += Nevents;
+        if(channel == "2mu2el") events_2mu2el += Nevents;
+        else if(channel == "4mu") events_4mu += Nevents;
+        else if(channel == "4el") events_4el += Nevents;
+      }
+      ////
 
       /*
       In der eigentlichen Analyse führen wir für jedes Ereignis aus.
@@ -206,6 +219,9 @@ int main(int argc, char* argv[]){
           FillHistogram(hist_muonETA, eta, weight, process);
           FillHistogram(hist_muonPHI, phi, weight, process);
           FillHistogram(hist_muonCHARGE, charge, weight, process);
+
+          // ptmax finden
+          if(pt > ptmax) ptmax = pt;
         }
         // ---------------------------------------------------------------------
 
@@ -216,11 +232,18 @@ int main(int argc, char* argv[]){
           double pt = Elecs[i].Pt();
           // in Histogramme füllen
           FillHistogram(hist_elecPT, pt, weight, process);
+          if(pt > ptmax) ptmax = pt;
         }
         // ---------------------------------------------------------------------
       }
     }
   }
+  cout << "Events in total: " << events_tot << endl;
+  cout << "Events in 2mu2el: " << events_2mu2el << endl;
+  cout << "Events in 4mu: " << events_4mu << endl;
+  cout << "Events in 4el: " << events_4el << endl;
+  cout << "max pT = " << ptmax << endl;
+
   // Am Ende: Abspeichern der Histogramme in der Output Datei
   outputFile->Write();
   return 0;

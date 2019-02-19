@@ -14,6 +14,8 @@
 #include <THStack.h>
 #include <vector>
 #include <TLorentzVector.h>
+#include <TGaxis.h>
+#include <TLatex.h>
 
 using namespace std;
 TFile* file;

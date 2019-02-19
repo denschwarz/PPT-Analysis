@@ -16,20 +16,8 @@
 #include <TLorentzVector.h>
 #include <TGaxis.h>
 #include <TLatex.h>
+#include "Plotter.h"
 
 using namespace std;
-
-class Plotter{
-public:
-  Plotter(TString dir);
-  void CreatePlot(vector<TH1F*>, TString, TString, double, double, double);
-  void SetHiggsColor(Color_t c){ c_Higgs = c;};
-  void SetZZColor(Color_t c){ c_ZZ = c;};
-  void SetDYColor(Color_t c){ c_DY = c;};
-
-private:
-  TString directory;
-  Color_t c_Higgs = kRed;
-  Color_t c_ZZ = kAzure-9;
-  Color_t c_DY = kGreen+2;
-};
+TFile* file;
+vector<TH1F*> ReadHistograms(TString);

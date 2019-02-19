@@ -6,13 +6,13 @@ Framework for a search for Higgs decaying into 4 leptons.
 - Git clone somewhere
 - Compile with 'make'
 - Run Analysis with './Analysis'
-- Run Plotter with './Plotter'
+- Run Plotter with './Plot'
 
 2) Workflow
 
-To run the analysis, first run "Analysis", then run "Plotter".
+To run the analysis, first run "Analysis", then run "Plot".
 Analyse will create a root file containing histograms.
-Plotter can read these histograms and create plots in the plot folder
+Plot can read these histograms and create plots in the plot folder
 
 
 3) rootfiles
@@ -28,6 +28,7 @@ The classes Particle and ReadLeptons help reading the rootfiles.
 A Particle has a 4-vector and a charge. Also it can return values like pT, eta, phi.
 ReadLeptons takes the rootfiles as input and reads the trees.
 With GetMuons or GetElectrons you get a vector with the size of N_events that contains a vector of muons/electrons for every event (vector containing vectors).
+The class Plotter is used to draw the histograms. All style options, colours, legend and so on are set here.
 The file Samples.h is the interface to use the rootfiles.
 It defines a list of file names, you also find the correct weight for every process, the relevant channels and an hist index which defines what process a file belongs to.
 

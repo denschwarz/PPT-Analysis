@@ -21,13 +21,13 @@ int main(int argc, char* argv[]){
   // Dieser Vektor enthält je ein Histogramm für jeden Prozess (Daten, Higgs, ZZ, DY)
   vector<TH1F*> hist_EventCount = CreateHistograms("EventCount",1, 0, 2);
   vector<TH1F*> hist_muonNUMBER = CreateHistograms("muonNUMBER", 6, -0.5, 5.5);
-  vector<TH1F*> hist_muonPT = CreateHistograms("muonPT", 20, 0, 300);
+  vector<TH1F*> hist_muonPT = CreateHistograms("muonPT", 20, 0, 200);
   vector<TH1F*> hist_muonPHI = CreateHistograms("muonPHI", 20, -4, 4);
   vector<TH1F*> hist_muonETA = CreateHistograms("muonETA", 20, -3, 3);
   vector<TH1F*> hist_muonCHARGE = CreateHistograms("muonCHARGE", 5, -2.5, 2.5);
-  vector<TH1F*> hist_elecPT = CreateHistograms("elecPT", 20, 0, 300);
+  vector<TH1F*> hist_elecPT = CreateHistograms("elecPT", 20, 0, 200);
   vector<TH1F*> hist_Zmass = CreateHistograms("Zmass", 20, 0, 150);
-  vector<TH1F*> hist_HIGGSmass = CreateHistograms("HIGGSmass", 30, 0, 220);
+  vector<TH1F*> hist_HIGGSmass = CreateHistograms("HIGGSmass", 20, 0, 200);
 
   // ---------------------------------------------------------------------------
   // Hier findet die eigentliche Analyse statt.

@@ -6,6 +6,7 @@
 #include <TTree.h>
 #include <TString.h>
 #include <TH1.h>
+#include <TF1.h>
 #include <TAxis.h>
 #include <TROOT.h>
 #include <TLegend.h>

@@ -27,7 +27,7 @@ int main(int argc, char* argv[]){
   vector<TH1F*> hist_muonCHARGE = CreateHistograms("muonCHARGE", 5, -2.5, 2.5);
   vector<TH1F*> hist_elecPT = CreateHistograms("elecPT", 20, 0, 200);
   vector<TH1F*> hist_Zmass = CreateHistograms("Zmass", 20, 0, 150);
-  vector<TH1F*> hist_HIGGSmass = CreateHistograms("HIGGSmass", 20, 0, 200);
+  vector<TH1F*> hist_HIGGSmass = CreateHistograms("HIGGSmass", 40, 0, 200);
 
   // ---------------------------------------------------------------------------
   // Hier findet die eigentliche Analyse statt.

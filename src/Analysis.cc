@@ -96,7 +96,6 @@ int main(int argc, char* argv[]){
           Particle Z2 = Combine(Elecs[0], Elecs[1]);
           FillHistogram(hist_Zmass, Z1.Mass(), weight, process);
           FillHistogram(hist_Zmass, Z2.Mass(), weight, process);
-
           // Hier ist das Higgs
           Particle H = Combine(Z1, Z2);
           FillHistogram(hist_HIGGSmass, H.Mass(), weight, process);

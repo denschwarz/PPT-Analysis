@@ -85,12 +85,12 @@ void Plotter::CreatePlot(vector<TH1F*> hists, TString filename, TString xtitle, 
   stack->GetYaxis()->SetTitleOffset(1.55);
   // Plotten
   stack->Draw("HIST");
-  hists[0]->Draw("E1 SAME");
+  if(unblinded) hists[0]->Draw("E1 SAME");
 
   // Legende
   TLegend* leg_count = new TLegend(0.60,0.60,0.87,0.85);
   leg_count->SetFillStyle(0);
-  leg_count->AddEntry(hists[0],"data","pl");
+  if(unblinded) leg_count->AddEntry(hists[0],"data","pl");
   leg_count->AddEntry(hists[2],"ZZ","f");
   leg_count->AddEntry(hists[3],"Z/#gamma + X","f");
   leg_count->AddEntry(hists[1],"Higgs","f");
@@ -137,9 +137,17 @@ void Plotter::CreatePlot(vector<TH1F*> hists, TString filename, TString xtitle, 
   ratio->GetYaxis()->SetRangeUser(0.1, 3.5);
   ratio->SetLineColor(kBlack);
   ratio->Divide(background);
-  ratio->SetMarkerStyle(20);
-  ratio->SetMarkerSize(0.8);
-  ratio->Draw("EP");
+  if(unblinded){
+    ratio->SetMarkerStyle(20);
+    ratio->SetMarkerSize(0.8);
+    ratio->Draw("EP");
+  }
+  else{
+    ratio->Reset();
+    ratio->SetLineWidth(1);
+    ratio->SetLineColor(13);
+    ratio->Draw("HIST");
+  }
 
   // Auch Signal im Ratio Plot zeichnen
   TH1F *signal = (TH1F*)hists[1]->Clone("signal");
@@ -176,7 +184,7 @@ void Plotter::CreatePlot(vector<TH1F*> hists, TString filename, TString xtitle, 
   for(auto line: lines) line->Draw("SAME");
   signal->Draw("HIST SAME");
   lines[0]->Draw("SAME");
-  ratio->Draw("EP SAME");
+  if(unblinded)ratio->Draw("EP SAME");
 
   // speichern
   c->SaveAs(directory+"/"+filename+".pdf");

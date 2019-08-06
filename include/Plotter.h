@@ -27,10 +27,13 @@ public:
   void SetHiggsColor(Color_t c){ c_Higgs = c;};
   void SetZZColor(Color_t c){ c_ZZ = c;};
   void SetDYColor(Color_t c){ c_DY = c;};
+  void Unblind(){ unblinded = true;};
+  void Blind(){ unblinded = false;};
 
 private:
   TString directory;
   Color_t c_Higgs = kRed;
   Color_t c_ZZ = kAzure-9;
   Color_t c_DY = kGreen+2;
+  bool unblinded = false;
 };

@@ -77,8 +77,6 @@ int main(int argc, char* argv[]){
         */
         FillHistogram(hist_EventCount, 1, weight, process);
 
-
-
         // Anzahl an Elektronen bzw. Myonen
         int numberMUONS = Muons.size();
         FillHistogram(hist_muonNUMBER, numberMUONS, weight, process);

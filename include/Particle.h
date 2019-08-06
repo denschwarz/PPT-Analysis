@@ -24,6 +24,12 @@ public:
     return p;
   }
 
+  Particle& operator+=(const Particle& other){
+    this->m_v4 += other.m_v4;
+    this->m_charge += other.m_charge;
+    return *this;
+  }
+
 
 
 private:

@@ -16,7 +16,7 @@ Plotter::Plotter(TString dir){
 // Hier passiert das eigentliche plotten ---------------------------------------
 void Plotter::CreatePlot(vector<TH1F*> hists, TString filename, TString xtitle, double xmin, double xmax, double ymax){
 
-  ScaleErrors(hists[0],1.5);
+  ScaleErrors(hists[0],1.2);
 
   // checken ob Grenzen mit Bins zusammenpassen
   bool matching_min = false;

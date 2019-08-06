@@ -36,4 +36,6 @@ private:
   Color_t c_ZZ = kAzure-9;
   Color_t c_DY = kGreen+2;
   bool unblinded = false;
+  void ScaleErrors(TH1F* hist, double scale);
+
 };

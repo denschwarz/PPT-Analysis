@@ -16,6 +16,8 @@ Plotter::Plotter(TString dir){
 // Hier passiert das eigentliche plotten ---------------------------------------
 void Plotter::CreatePlot(vector<TH1F*> hists, TString filename, TString xtitle, double xmin, double xmax, double ymax){
 
+  ScaleErrors(hists[0],1.5);
+
   // checken ob Grenzen mit Bins zusammenpassen
   bool matching_min = false;
   bool matching_max = false;
@@ -187,9 +189,19 @@ void Plotter::CreatePlot(vector<TH1F*> hists, TString filename, TString xtitle, 
   signal->Draw("HIST SAME");
   lines[0]->Draw("SAME");
   if(unblinded)ratio->Draw("EP SAME");
+  gPad->RedrawAxis();
 
   // speichern
   c->SaveAs(directory+"/"+filename+".pdf");
   delete c;
+  return;
+}
+
+void Plotter::ScaleErrors(TH1F* hist, double scale){
+  int Nbins = hist->GetXaxis()->GetNbins();
+  for(int bin=1; bin<=Nbins; bin++){
+    double err = hist->GetBinError(bin);
+    hist->SetBinError(bin, err*scale);
+  }
   return;
 }

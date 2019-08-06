@@ -1,4 +1,5 @@
 #include "../include/Plotter.h"
+#include <cstdlib>
 
 /*
 Mit dieser Klasse könne Plots erstellt werden.
@@ -7,6 +8,7 @@ Mit dieser Klasse könne Plots erstellt werden.
 
 Plotter::Plotter(TString dir){
   directory = dir;
+  system("mkdir -p "+dir);
 }
 
 

@@ -4,6 +4,7 @@ Framework for a search for Higgs decaying into 4 leptons.
 1) Install
 
 - Git clone somewhere
+- Source thisroot.sh (/usr/local/root/bin/thisroot.sh)
 - Compile with 'make'
 - Run Analysis with './Analysis'
 - Run Plotter with './Plotter'

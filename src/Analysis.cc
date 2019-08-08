@@ -26,7 +26,6 @@ int main(int argc, char* argv[]){
   vector<TH1F*> hist_muonETA = CreateHistograms("muonETA", 20, -3, 3);
   vector<TH1F*> hist_muonCHARGE = CreateHistograms("muonCHARGE", 5, -2.5, 2.5);
   vector<TH1F*> hist_elecPT = CreateHistograms("elecPT", 20, 0, 200);
-  vector<TH1F*> hist_Zmass = CreateHistograms("Zmass", 20, 0, 150);
 
   // ---------------------------------------------------------------------------
   // Hier findet die eigentliche Analyse statt.
@@ -110,20 +109,22 @@ int main(int argc, char* argv[]){
         // Aufteilung nach Zerfallskanälen -------------------------------------
         if(channel == "2mu2el"){
           /*
-          Hier wird ein Z aus Myonen und ein Z aus Elektronen rekonstruiert
-          In dem 2mu2el Kanal ist hier die Zuordnung eindeutig, weil ein Z
-          immer in 2 Myonen oder 2 Elektronen zerfällt.
+          Hier können Funktionen speziell für den
+          2 Myonen, 2 Elektronen Kanal eingefügt werden
           */
-          Particle Z1 = Combine(Muons[0], Muons[1]);
-          Particle Z2 = Combine(Elecs[0], Elecs[1]);
-          FillHistogram(hist_Zmass, Z1.Mass(), weight, process);
-          FillHistogram(hist_Zmass, Z2.Mass(), weight, process);
         }
         else if(channel == "4mu"){
+          /*
+          Hier können Funktionen speziell für den
+          4 Myonen Kanal eingefügt werden
+          */
           // Hier können Funktionen speziell für den 4 Myonen Kanal eingefügt werden
         }
         else if(channel == "4el"){
-          // Hier können Funktionen speziell für den 4 Myonen Kanal eingefügt werden
+          /*
+          Hier können Funktionen speziell für den
+          4 Elektronen Kanal eingefügt werden
+          */
         }
         // ---------------------------------------------------------------------
         // ---------------------------------------------------------------------

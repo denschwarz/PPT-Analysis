@@ -21,7 +21,6 @@ int main(int argc, char* argv[]){
   vector<TH1F*> h_muonETA = ReadHistograms("muonETA");
   vector<TH1F*> h_muonCHARGE = ReadHistograms("muonCHARGE");
   vector<TH1F*> h_elecPT = ReadHistograms("elecPT");
-  vector<TH1F*> h_Zmass = ReadHistograms("Zmass");
 
   // Hier wird der eigentliche Plot erstellt
   Plotter plotter("plots");
@@ -40,7 +39,6 @@ int main(int argc, char* argv[]){
   plotter.CreatePlot(h_muonPHI, "MuonPHI", "Muon #Phi", -4, 4, 200);
   plotter.CreatePlot(h_muonCHARGE, "MuonCHARGE", "Muon charge", -2.5, 2.5, 600);
   plotter.CreatePlot(h_elecPT, "ElectronPT", "Electron p_{T}", 0, 200, 200);
-  plotter.CreatePlot(h_Zmass, "Zmass", "Z mass", 0, 150, 360);
 
   return 0;
 }

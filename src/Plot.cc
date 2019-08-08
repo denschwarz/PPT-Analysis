@@ -25,7 +25,7 @@ int main(int argc, char* argv[]){
 
   // Hier wird der eigentliche Plot erstellt
   Plotter plotter("plots");
-  plotter.Unblind();
+
   // Hier können noch Farben eingestellt werden
   plotter.SetHiggsColor(kRed);
   plotter.SetZZColor(kAzure-9);

@@ -21,11 +21,9 @@ int main(int argc, char* argv[]){
   // Dieser Vektor enthält je ein Histogramm für jeden Prozess (Daten, Higgs, ZZ, DY)
   vector<TH1F*> hist_EventCount = CreateHistograms("EventCount",1, 0, 2);
   vector<TH1F*> hist_muonNUMBER = CreateHistograms("muonNUMBER", 6, -0.5, 5.5);
-  vector<TH1F*> hist_muonPT = CreateHistograms("muonPT", 20, 0, 200);
   vector<TH1F*> hist_muonPHI = CreateHistograms("muonPHI", 20, -4, 4);
   vector<TH1F*> hist_muonETA = CreateHistograms("muonETA", 20, -3, 3);
   vector<TH1F*> hist_muonCHARGE = CreateHistograms("muonCHARGE", 5, -2.5, 2.5);
-  vector<TH1F*> hist_elecPT = CreateHistograms("elecPT", 20, 0, 200);
 
   // ---------------------------------------------------------------------------
   // Hier findet die eigentliche Analyse statt.
@@ -88,7 +86,6 @@ int main(int argc, char* argv[]){
           double phi = Muons[i].Phi();
           int charge = Muons[i].Charge();
           // in Histogramme füllen
-          FillHistogram(hist_muonPT, pt, weight, process);
           FillHistogram(hist_muonETA, eta, weight, process);
           FillHistogram(hist_muonPHI, phi, weight, process);
           FillHistogram(hist_muonCHARGE, charge, weight, process);
@@ -98,10 +95,6 @@ int main(int argc, char* argv[]){
 
         // Schleife über alle Elektronen in einem Ereignis ---------------------
         for(int i=0; i<Elecs.size(); i++){
-          // Variablen von Elektronen auslesen
-          double pt = Elecs[i].Pt();
-          // in Histogramme füllen
-          FillHistogram(hist_elecPT, pt, weight, process);
         }
         // ---------------------------------------------------------------------
 

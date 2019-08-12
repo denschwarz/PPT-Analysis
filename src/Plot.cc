@@ -16,11 +16,9 @@ int main(int argc, char* argv[]){
   // und ein einzelnes Histogramm fuer jedes Signal/Untergrund erstellen
   vector<TH1F*> h_EventCount = ReadHistograms("EventCount");
   vector<TH1F*> h_muonNUMBER = ReadHistograms("muonNUMBER");
-  vector<TH1F*> h_muonPT = ReadHistograms("muonPT");
   vector<TH1F*> h_muonPHI = ReadHistograms("muonPHI");
   vector<TH1F*> h_muonETA = ReadHistograms("muonETA");
   vector<TH1F*> h_muonCHARGE = ReadHistograms("muonCHARGE");
-  vector<TH1F*> h_elecPT = ReadHistograms("elecPT");
 
   // Hier wird der eigentliche Plot erstellt
   Plotter plotter("plots");
@@ -34,11 +32,9 @@ int main(int argc, char* argv[]){
   // Parameter: Hist-Vektor, Name der Datei, X-Achsen Titel, x_min, x_max, y_max
   plotter.CreatePlot(h_EventCount, "EventCount", " ", 0, 2, 600);
   plotter.CreatePlot(h_muonNUMBER, "MuonNUMBER", "number of muons", -0.5, 5.5, 300);
-  plotter.CreatePlot(h_muonPT, "MuonPT", "Muon p_{T}", 0, 200, 200);
   plotter.CreatePlot(h_muonETA, "MuonETA", "Muon #eta", -3, 3, 200);
   plotter.CreatePlot(h_muonPHI, "MuonPHI", "Muon #Phi", -4, 4, 200);
   plotter.CreatePlot(h_muonCHARGE, "MuonCHARGE", "Muon charge", -2.5, 2.5, 600);
-  plotter.CreatePlot(h_elecPT, "ElectronPT", "Electron p_{T}", 0, 200, 200);
 
   return 0;
 }
